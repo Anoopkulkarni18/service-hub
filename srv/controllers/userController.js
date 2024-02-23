@@ -16,7 +16,7 @@ export const handleRegister = async (req, res, next) => {
     if (existingUser) {
       throw { statusCode: 409, message: "User already registered" };
     }
-    const newUser = await User.create({
+    await User.create({
       email,
       password: hashedPassword,
       mobileNumber,
@@ -39,7 +39,7 @@ export const handleLogin = async (req, res, next) => {
       currentUser.password
     );
     if (!isPasswordCorrect) {
-      throw { statusCode: 401, message: "Invalid Email" };
+      throw { statusCode: 401, message: "Invalid Credentials" };
     }
     const token = jwtSign({ email });
     res.status(200).json({ token });

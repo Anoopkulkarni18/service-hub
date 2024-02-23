@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
 
 const serviceSchema = new mongoose.Schema({
-  name: String,
-  key: String,
-  category: String,
-  subCategory: String,
+  name: { type: String, Unique: true, required: true },
+  key: { type: String, Unique: true, required: true },
+  subCategory: { type: String, Unique: true, required: true }
 });
 
 export default mongoose.model("Service", serviceSchema);

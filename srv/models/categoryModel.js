@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 const categorySchema = new mongoose.Schema({
-  name: String,
-  key: String,
+  name: { type: String, Unique: true, required: true },
+  key: { type: String, Unique: true, required: true },
 });
 
 export default mongoose.model("Category", categorySchema);
