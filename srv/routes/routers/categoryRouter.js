@@ -6,6 +6,6 @@ import {
 
 const router = Router();
 router.post("/create", createCategory);
-router.get("/getAllCategories", getAllCategories);
+router.get("/getAll", getAllCategories);
 
 export default router;

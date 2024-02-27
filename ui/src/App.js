@@ -1,10 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import ServiceProviderRegister from "./components/serviceProvider/ServiceProviderRegister";
+import ServiceProviderHome from "./components/serviceProvider/ServiceProviderHome";
 
 function App() {
   return (
     <div className="App">
-      APP
+      <ServiceProviderHome />
     </div>
   );
 }
