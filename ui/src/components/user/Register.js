@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-export default function ServiceProviderRegister() {
+export default function Register() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -17,7 +17,7 @@ export default function ServiceProviderRegister() {
       [name]: value,
     });
   };
-  const handleServiceProviderRegister = async (e) => {
+  const handleRegisterRegister = async (e) => {
     e.preventDefault();
     const res = await axios.post(
       "http://localhost:4000/srv/user/register",
@@ -27,7 +27,7 @@ export default function ServiceProviderRegister() {
   };
   return (
     <div>
-      <form onSubmit={handleServiceProviderRegister}>
+      <form onSubmit={handleRegisterRegister}>
         <div className="form-group">
           <label htmlFor="userEmail">Email address</label>
           <input
@@ -53,11 +53,11 @@ export default function ServiceProviderRegister() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="serviceProviderMobileNumber">Mobile Number</label>
+          <label htmlFor="userMobileNumber">Mobile Number</label>
           <input
             type="text"
             className="form-control"
-            id="serviceProviderMobileNumber"
+            id="userMobileNumber"
             placeholder="Mobile Number"
             name="mobileNumber"
             value={formData.mobileNumber}
@@ -65,11 +65,11 @@ export default function ServiceProviderRegister() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="serviceProviderFname">First Name</label>
+          <label htmlFor="fname">First Name</label>
           <input
             type="text"
             className="form-control"
-            id="serviceProviderFname"
+            id="fname"
             placeholder="First Name"
             name="fname"
             value={formData.fname}
@@ -77,11 +77,11 @@ export default function ServiceProviderRegister() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="serviceProviderLname">Last Name</label>
+          <label htmlFor="lname">Last Name</label>
           <input
             type="text"
             className="form-control"
-            id="serviceProviderLname"
+            id="lname"
             placeholder="Last Name"
             name="lname"
             value={formData.lname}
