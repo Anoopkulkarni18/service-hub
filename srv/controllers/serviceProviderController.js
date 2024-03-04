@@ -5,6 +5,16 @@ import jwt from "jsonwebtoken";
 const jwtSign = (jwtObj) => {
   return jwt.sign({ jwtObj }, process.env.SECRET_KEY, { expiresIn: "1d" });
 };
+
+export const  verifyToken=async(req,res,next)=>{
+  try {
+   const decoded= jwt.verify(token,process.env.SECRET_KEY);
+   req.serviceProvider=decoded;
+   next();
+  } catch (error) {
+    next(error);
+  }
+}
 export const handleServiceProviderRegister = async (req, res, next) => {
   try {
     const { email, password, mobileNumber, fname, lname } = req.body;

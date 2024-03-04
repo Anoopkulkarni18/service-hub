@@ -7,7 +7,7 @@ export default function ServiceProviderHome() {
     2: "subCategory",
     3: "service",
   };
-  // const [servicesProvided, setServicesProvided] = useState([]);
+  const [servicesProvided, setServicesProvided] = useState([]);
   const [step, setStep] = useState(0);
   const [stepData, setStepData] = useState([]);
   const [serviceDetail, setServiceDetail] = useState({
@@ -36,12 +36,12 @@ export default function ServiceProviderHome() {
       serviceKeys: stepData.filter((data) => data.checked),
     });
   };
-  // useEffect(() => {
-  //   const services = async () => {
-  //     console.log("services");
-  //   };
-  //   services();
-  // }, []);
+  useEffect(() => {
+    const services = async () => {
+      console.log("services");
+    };
+    services();
+  }, []);
   const handleCheckBoxChange = (event) => {
     const { id } = event.target;
     setStepData(
@@ -72,13 +72,13 @@ export default function ServiceProviderHome() {
   }, [step]);
   return (
     <div>
-      {/* <h1>Services</h1>
+       <h1>Services</h1>
       <div>
         {servicesProvided.map((ser) => {
           return <div key={ser.key}>{ser.name}</div>;
         })}
       </div>
-      <hr /> */}
+      <hr /> 
       {step === 0 && (
         <div>
           <button onClick={handleStepChange}>Add Services</button>
