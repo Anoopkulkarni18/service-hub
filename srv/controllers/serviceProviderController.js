@@ -6,11 +6,10 @@ const jwtSign = (jwtObj) => {
   return jwt.sign({ jwtObj }, process.env.SECRET_KEY, { expiresIn: "1d" });
 };
 
-export const  verifyToken=async(req,res,next)=>{
+export const verifyToken = async (req, res, next) => {
   try {
-   const decoded= jwt.verify(token,process.env.SECRET_KEY);
-   req.serviceProvider=decoded;
-   next();
+    req.serviceProvider = jwt.verify(req.headers.token, process.env.SECRET_KEY);
+    next();
   } catch (error) {
     next(error);
   }
@@ -59,16 +58,16 @@ export const handleServiceProviderLogin = async (req, res, next) => {
   }
 };
 
-export const handleAddServices = async (req, res, next) => {
+export const addServices = async (req, res, next) => {
   try {
     const { serviceKeys } = req.body;
-    const serviceProviderEmail = "abc@xyz.com";
+    const serviceProviderEmail = req.serviceProvider.email;
     let serviceProvidedList = await ServiceListModel.find({
       serviceProviderEmail,
     });
     serviceProvidedList = serviceProvidedList.map((sl) => sl.serviceKey);
     for (let serviceObj of serviceKeys) {
-      if (!serviceProvidedList.includes(serviceObj.serviceKey)) {
+      if (!serviceProvidedList.includes(serviceObj.key)) {
         await ServiceListModel.create({
           serviceProviderEmail,
           serviceKey: serviceObj.key,
@@ -77,6 +76,18 @@ export const handleAddServices = async (req, res, next) => {
       }
     }
     res.status(200).send("Services Added Successfully");
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getAllServices = async (req, res, next) => {
+  try {
+    const serviceProviderEmail = req.serviceProvider.email;
+    let servicesProvided = await ServiceListModel.find({
+      serviceProviderEmail,
+    }).select('serviceKey serviceName');
+    res.status(200).json({ servicesProvided });
   } catch (err) {
     next(err);
   }

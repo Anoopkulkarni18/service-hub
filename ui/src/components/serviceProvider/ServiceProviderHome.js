@@ -34,14 +34,10 @@ export default function ServiceProviderHome() {
   const handleServiceAdd = async (e) => {
     await axios.post("http://localhost:4000/srv/serviceProvider/addServices", {
       serviceKeys: stepData.filter((data) => data.checked),
-    });
+    }, { headers: { token: localStorage.getItem('token') } });
+    setStepData([]);
+    setStep(0);
   };
-  useEffect(() => {
-    const services = async () => {
-      console.log("services");
-    };
-    services();
-  }, []);
   const handleCheckBoxChange = (event) => {
     const { id } = event.target;
     setStepData(
@@ -54,11 +50,9 @@ export default function ServiceProviderHome() {
     );
   };
   useEffect(() => {
-    if (step === 0) return;
     const getCategories = async () => {
-      const uri = `http://localhost:4000/srv/${selectedStep[step]}/getAll${
-        step !== 1 ? `/${serviceDetail[selectedStep[step - 1]]}` : ""
-      }`;
+      const uri = `http://localhost:4000/srv/${selectedStep[step]}/getAll${step !== 1 ? `/${serviceDetail[selectedStep[step - 1]]}` : ""
+        }`;
       setStepData(
         (await axios.get(uri)).data.map((item) => {
           return {
@@ -68,17 +62,18 @@ export default function ServiceProviderHome() {
         })
       );
     };
-    getCategories();
+    const getProviderServices = async () => {
+      setServicesProvided((await axios.get("http://localhost:4000/srv/serviceProvider/getServices", { headers: { token: localStorage.getItem('token') } })).data.servicesProvided);
+    };
+    (step === 0) ? getProviderServices() : getCategories();
   }, [step]);
   return (
     <div>
-       <h1>Services</h1>
-      <div>
-        {servicesProvided.map((ser) => {
-          return <div key={ser.key}>{ser.name}</div>;
-        })}
-      </div>
-      <hr /> 
+      <h1>Services</h1>
+      {servicesProvided.map((ser) => {
+        return <div key={ser.serviceKey}>{ser.serviceName}</div>;
+      })}
+      <hr />
       {step === 0 && (
         <div>
           <button onClick={handleStepChange}>Add Services</button>
