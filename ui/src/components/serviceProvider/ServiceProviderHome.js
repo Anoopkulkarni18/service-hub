@@ -1,5 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import SelectCategory from "./SelectCategory";
+import SelectSubCategory from "./SelectSubCategory";
+import SelectServices from "./SelectServices";
 
 export default function ServiceProviderHome() {
   const selectedStep = {
@@ -49,10 +52,12 @@ export default function ServiceProviderHome() {
       })
     );
   };
+  const handleBackButton = () => {
+    setStep(step - 1);
+  }
   useEffect(() => {
     const getCategories = async () => {
-      const uri = `http://localhost:4000/srv/${selectedStep[step]}/getAll${step !== 1 ? `/${serviceDetail[selectedStep[step - 1]]}` : ""
-        }`;
+      const uri = `http://localhost:4000/srv/${selectedStep[step]}/getAll${step !== 1 ? `/${serviceDetail[selectedStep[step - 1]]}` : ""}`;
       setStepData(
         (await axios.get(uri)).data.map((item) => {
           return {
@@ -79,54 +84,10 @@ export default function ServiceProviderHome() {
           <button onClick={handleStepChange}>Add Services</button>
         </div>
       )}
-      {step === 1 && (
-        <div>
-          <h3>Select a category</h3>
-          {stepData.map((cat) => {
-            return (
-              <div onClick={() => handleCategoryChange(cat.key)} key={cat.key}>
-                {cat.name}
-              </div>
-            );
-          })}
-        </div>
-      )}
-      {step === 2 && (
-        <div>
-          <h3>Select a sub category</h3>
-          {stepData.map((subCat) => {
-            return (
-              <div
-                onClick={() => handleSubCategoryChange(subCat.key)}
-                key={subCat.key}
-              >
-                {subCat.name}
-              </div>
-            );
-          })}
-        </div>
-      )}
-      {step === 3 && (
-        <>
-          <h3>Select services</h3>
-          {stepData.map((serv, servIndex) => (
-            <div key={serv.key}>
-              <input
-                type="checkbox"
-                id={serv.key}
-                name={serv.name}
-                value={serv.name}
-                onChange={handleCheckBoxChange}
-                checked={stepData[servIndex].checked}
-              />
-              <label htmlFor={serv.key}>{serv.name}</label>
-            </div>
-          ))}
-          <button onClick={handleServiceAdd} type="button">
-            Submit
-          </button>
-        </>
-      )}
+      {step === 1 && <SelectCategory stepData={stepData} handleCategoryChange={handleCategoryChange} />}
+      {step === 2 && <SelectSubCategory stepData={stepData} handleSubCategoryChange={handleSubCategoryChange} />}
+      {step === 3 && <SelectServices stepData={stepData} handleCheckBoxChange={handleCheckBoxChange} handleServiceAdd={handleServiceAdd} servicesProvided={servicesProvided.map(srv => srv.serviceKey)} />}
+      {step !== 0 && <button onClick={handleBackButton}>Back</button>}
     </div>
   );
 }

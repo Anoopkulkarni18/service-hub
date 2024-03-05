@@ -16,11 +16,11 @@ export default function ServiceProviderLogin() {
   };
   const handleLogin = async (e) => {
     e.preventDefault();
-    const res= await axios.post(
+    const res = await axios.post(
       "http://localhost:4000/srv/serviceProvider/login",
       formData
     );
-  localStorage.setItem(res.data.token);
+    localStorage.setItem('token', res.data.token);
   };
   return (
     <div>
