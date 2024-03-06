@@ -16,7 +16,7 @@ export const verifyToken = async (req, res, next) => {
 }
 export const handleServiceProviderRegister = async (req, res, next) => {
   try {
-    const { email, password, mobileNumber, fname, lname } = req.body;
+    const { email, password, mobileNumber, fname, lname,city } = req.body;
     const existingServiceProvider = await serviceProviderModel.findOne({
       email,
     });
@@ -30,6 +30,7 @@ export const handleServiceProviderRegister = async (req, res, next) => {
       mobileNumber,
       fname,
       lname,
+      city
     });
     const token = jwtSign({ email });
     res.status(200).json({ token });

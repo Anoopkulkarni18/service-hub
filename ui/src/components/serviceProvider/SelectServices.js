@@ -15,6 +15,8 @@ function SelectServices({ stepData, handleCheckBoxChange, handleServiceAdd, serv
             checked={stepData[servIndex].checked}
           />
           <label htmlFor={serv.key}>{serv.name}</label>
+          
+             
         </div>
       ))}
       <button onClick={handleServiceAdd} type="button">

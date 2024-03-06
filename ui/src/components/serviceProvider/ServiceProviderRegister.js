@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function ServiceProviderRegister() {
   const [formData, setFormData] = useState({
@@ -9,7 +10,7 @@ export default function ServiceProviderRegister() {
     fname: "",
     lname: "",
   });
-
+  const navigate = useNavigate();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -23,7 +24,11 @@ export default function ServiceProviderRegister() {
       "http://localhost:4000/srv/serviceProvider/register",
       formData
     );
-    localStorage.setItem("token",res.data.token);
+    localStorage.getItem("token", res.data.token);
+    navigate("/service-provider-home");
+  };
+  const goToServiceProviderLogin = () => {
+    navigate("/service-provider-login");
   };
   return (
     <div>
@@ -92,11 +97,24 @@ export default function ServiceProviderRegister() {
             onChange={handleInputChange}
           />
         </div>
+        <div className="form-group">
+          <label htmlFor="serviceProviderCity">Enter Your City</label>
+          <input
+            type="text"
+            className="form-control"
+            id="serviceProviderCity"
+            placeholder="Enter Your City"
+            name="city"
+            value={formData.city}
+            onChange={handleInputChange}
+          />
+        </div>
 
         <button type="submit" className="btn btn-primary">
           Register
         </button>
       </form>
+      <button onClick={goToServiceProviderLogin}>Already a service provider</button>
     </div>
   );
 }

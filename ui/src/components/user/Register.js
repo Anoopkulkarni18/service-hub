@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -9,7 +10,7 @@ export default function Register() {
     fname: "",
     lname: "",
   });
-
+  const navigate = useNavigate();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -17,17 +18,24 @@ export default function Register() {
       [name]: value,
     });
   };
-  const handleRegisterRegister = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     const res = await axios.post(
       "http://localhost:4000/srv/user/register",
       formData
     );
     localStorage.setItem("token", res.data.token);
+    navigate("/");
+  };
+  const goToLogin = () => {
+    navigate("/login");
+  };
+  const goToServiceProvider = () => {
+    navigate("/service-provider-register");
   };
   return (
     <div>
-      <form onSubmit={handleRegisterRegister}>
+      <form onSubmit={handleRegister}>
         <div className="form-group">
           <label htmlFor="userEmail">Email address</label>
           <input
@@ -93,6 +101,8 @@ export default function Register() {
           Register
         </button>
       </form>
+      <button onClick={goToLogin}>Already a user</button>
+      <button onClick={goToServiceProvider}>I am a service provider</button>
     </div>
   );
 }

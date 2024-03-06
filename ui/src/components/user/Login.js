@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
+  const navigate = useNavigate();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -20,7 +22,14 @@ export default function Login() {
       "http://localhost:4000/srv/user/login",
       formData
     );
-    localStorage.setItem('token', res.data.token);
+    localStorage.setItem("token", res.data.token);
+    navigate("/");
+  };
+  const goToRegister = () => {
+    navigate("/register");
+  };
+  const goToServiceProvider = () => {
+    navigate("/service-provider-register");
   };
   return (
     <div>
@@ -58,6 +67,8 @@ export default function Login() {
           Submit
         </button>
       </form>
+      <button onClick={goToRegister}>New User</button>
+      <button onClick={goToServiceProvider}>I am a service provider</button>
     </div>
   );
 }
