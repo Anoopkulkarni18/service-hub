@@ -3,12 +3,17 @@ import React from "react";
 function SelectCategory({ stepData, handleCategoryChange }) {
   return (
     <div>
-      <h3>Select a category</h3>
-      {stepData.map((cat) => {
-        return (
-          <div onClick={() => handleCategoryChange(cat.key)} key={cat.key}>
-          <div className="card" style={{ width: "288px" }}>
-                <img src="..." className="card-img-top" alt="..." />
+      <h3 style={{ textAlign: "center", marginBottom: "20px" }}>Select a category</h3>
+      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+        {stepData.map((cat) => {
+          return (
+            <div
+              key={cat.key}
+              onClick={() => handleCategoryChange(cat.key)}
+              style={{ margin: "10px", cursor: "pointer", width: "288px" }}
+            >
+              <div className="card" style={{ height: "100%", width: "100%" }}>
+                <img src="..." className="card-img-top" alt="..." style={{ width: "100%" }} />
                 <div className="card-body">
                   <h5 className="card-title">{cat.name}</h5>
                   <p className="card-text">
@@ -17,19 +22,10 @@ function SelectCategory({ stepData, handleCategoryChange }) {
                   </p>
                 </div>
               </div>
-              <div className="card" style={{ width: "288px" }}>
-                <img src="..." className="card-img-top" alt="..." />
-                <div className="card-body">
-                  <h5 className="card-title">{cat.name}</h5>
-                  <p className="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                </div>
-              </div>
-          </div>
-        );
-      })}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import Category from "./Category";
 import SubCategory from "./SubCategory";
 import Services from "./Services";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../Navbar";
 
 export default function Home() {
   const selectedStep = {
@@ -47,9 +48,7 @@ export default function Home() {
   const handleBackButton = () => {
     setStep(step - 1);
   };
-  useEffect(() => {
-    navigate("/login");
-  }, []);
+
   useEffect(() => {
     const getCategories = async () => {
       const uri = `http://localhost:4000/srv/${selectedStep[step]}/getAll${
@@ -66,8 +65,10 @@ export default function Home() {
     };
     getCategories();
   }, [step]);
+
   return (
     <div>
+      <Navbar />
       {step === 0 && (
         <div>
           <button onClick={handleStepChange}>Add Services</button>
@@ -91,7 +92,22 @@ export default function Home() {
           handleServiceChange={handleServiceChange}
         />
       )}
-      {step !== 1 && <button onClick={handleBackButton}>Back</button>}
+      {step !== 1 && (
+        <button
+          onClick={handleBackButton}
+          style={{
+            margin: "20px auto",
+            padding: "10px 20px",
+            backgroundColor: "lightgray",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            display: "block",
+          }}
+        >
+          Back
+        </button>
+      )}
     </div>
   );
 }

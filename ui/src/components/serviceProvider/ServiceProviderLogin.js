@@ -8,6 +8,7 @@ export default function ServiceProviderLogin() {
     password: "",
   });
   const navigate = useNavigate();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -15,6 +16,7 @@ export default function ServiceProviderLogin() {
       [name]: value,
     });
   };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     const res = await axios.post(
@@ -23,13 +25,22 @@ export default function ServiceProviderLogin() {
     );
     localStorage.setItem("token", res.data.token);
     navigate("/service-provider-home");
-
   };
+
   const goToRegister = () => {
     navigate("/register");
   };
+
   return (
-    <div>
+    <div
+      style={{
+        margin: "50px auto",
+        maxWidth: "400px",
+        padding: "20px",
+        border: "1px solid #ccc",
+        borderRadius: "5px",
+      }}
+    >
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">Email address</label>
@@ -42,6 +53,7 @@ export default function ServiceProviderLogin() {
             name="email"
             value={formData.email}
             onChange={handleInputChange}
+            style={{ width: "100%", padding: "10px", borderRadius: "5px" }}
           />
           <small id="emailHelp" className="form-text text-muted">
             We'll never share your email with anyone else.
@@ -57,14 +69,38 @@ export default function ServiceProviderLogin() {
             name="password"
             value={formData.password}
             onChange={handleInputChange}
+            style={{ width: "100%", padding: "10px", borderRadius: "5px" }}
           />
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button
+          type="submit"
+          className="btn btn-success"
+          style={{
+            width: "100%",
+            padding: "10px",
+            borderRadius: "5px",
+            marginTop: "10px",
+          }}
+        >
           Submit
         </button>
       </form>
-      <button onClick={goToRegister}>New Service Provider</button>
+      <button
+        onClick={goToRegister}
+        style={{
+          backgroundColor: "green",
+          color: "white",
+          padding: "10px",
+          marginTop: "20px",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+          width: "100%",
+        }}
+      >
+        New Service Provider
+      </button>
     </div>
   );
 }

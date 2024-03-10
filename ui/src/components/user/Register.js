@@ -11,6 +11,7 @@ export default function Register() {
     lname: "",
   });
   const navigate = useNavigate();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -18,6 +19,7 @@ export default function Register() {
       [name]: value,
     });
   };
+
   const handleRegister = async (e) => {
     e.preventDefault();
     const res = await axios.post(
@@ -27,16 +29,19 @@ export default function Register() {
     localStorage.setItem("token", res.data.token);
     navigate("/");
   };
+
   const goToLogin = () => {
     navigate("/login");
   };
+
   const goToServiceProvider = () => {
     navigate("/service-provider-register");
   };
+
   return (
-    <div>
+    <div style={{ margin: "50px auto", maxWidth: "400px", padding: "20px", border: "1px solid #ccc", borderRadius: "5px" }}>
       <form onSubmit={handleRegister}>
-        <div className="form-group">
+        <div style={{ marginBottom: "20px" }}>
           <label htmlFor="userEmail">Email address</label>
           <input
             type="email"
@@ -46,9 +51,10 @@ export default function Register() {
             name="email"
             value={formData.email}
             onChange={handleInputChange}
+            style={{ width: "100%", padding: "10px", borderRadius: "5px" }}
           />
         </div>
-        <div className="form-group">
+        <div style={{ marginBottom: "20px" }}>
           <label htmlFor="userPassword">Password</label>
           <input
             type="password"
@@ -58,9 +64,10 @@ export default function Register() {
             name="password"
             value={formData.password}
             onChange={handleInputChange}
+            style={{ width: "100%", padding: "10px", borderRadius: "5px" }}
           />
         </div>
-        <div className="form-group">
+        <div style={{ marginBottom: "20px" }}>
           <label htmlFor="userMobileNumber">Mobile Number</label>
           <input
             type="text"
@@ -70,9 +77,10 @@ export default function Register() {
             name="mobileNumber"
             value={formData.mobileNumber}
             onChange={handleInputChange}
+            style={{ width: "100%", padding: "10px", borderRadius: "5px" }}
           />
         </div>
-        <div className="form-group">
+        <div style={{ marginBottom: "20px" }}>
           <label htmlFor="fname">First Name</label>
           <input
             type="text"
@@ -82,9 +90,10 @@ export default function Register() {
             name="fname"
             value={formData.fname}
             onChange={handleInputChange}
+            style={{ width: "100%", padding: "10px", borderRadius: "5px" }}
           />
         </div>
-        <div className="form-group">
+        <div style={{ marginBottom: "20px" }}>
           <label htmlFor="lname">Last Name</label>
           <input
             type="text"
@@ -94,15 +103,21 @@ export default function Register() {
             name="lname"
             value={formData.lname}
             onChange={handleInputChange}
+            style={{ width: "100%", padding: "10px", borderRadius: "5px" }}
           />
         </div>
-
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary" style={{ width: "100%", padding: "10px", borderRadius: "5px" }}>
           Register
         </button>
       </form>
-      <button onClick={goToLogin}>Already a user</button>
-      <button onClick={goToServiceProvider}>I am a service provider</button>
+      <div style={{ marginTop: "20px" }}>
+        <button className="btn btn-link" onClick={goToLogin} style={{ marginRight: "10px" }}>
+          Already a user
+        </button>
+        <button className="btn btn-link" onClick={goToServiceProvider}>
+          I am a service provider
+        </button>
+      </div>
     </div>
   );
 }

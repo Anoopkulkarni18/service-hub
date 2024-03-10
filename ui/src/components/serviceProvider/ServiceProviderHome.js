@@ -47,9 +47,9 @@ export default function ServiceProviderHome() {
     setStepData([]);
     setStep(0);
   };
-  useEffect(() => {
-    navigate("/service-provider-login");
-  }, []);
+  // useEffect(() => {
+  //   navigate("/service-provider-login");
+  // }, []);
   const handleCheckBoxChange = (event) => {
     const { id } = event.target;
     setStepData(
