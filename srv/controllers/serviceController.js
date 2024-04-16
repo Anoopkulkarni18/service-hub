@@ -31,8 +31,6 @@ export const getServices = async (req, res, next) => {
   }
 };
 
-import Service from "../models/Service";
-
 export const getSearchService = async (req, res, next) => {
   try {
     const { name } = req.body;
