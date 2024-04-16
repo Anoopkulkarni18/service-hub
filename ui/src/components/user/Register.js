@@ -40,6 +40,9 @@ export default function Register() {
 
   return (
     <div style={{ margin: "50px auto", maxWidth: "400px", padding: "20px", border: "1px solid #ccc", borderRadius: "5px" }}>
+    <h2 style={{ textAlign: "center", marginBottom: "20px", color: "#333" }}>
+      User Register 
+      </h2>
       <form onSubmit={handleRegister}>
         <div style={{ marginBottom: "20px" }}>
           <label htmlFor="userEmail">Email address</label>

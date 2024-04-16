@@ -30,3 +30,22 @@ export const getServices = async (req, res, next) => {
     next(err);
   }
 };
+
+import Service from "../models/Service";
+
+export const getSearchService = async (req, res, next) => {
+  try {
+    const { name } = req.body;
+    const searchRegex = new RegExp(name, "i");
+    const searchedElements = await Service.find({ name: searchRegex });
+    if (searchedElements.length === 0) {
+      return res.status(404).json({ error: "No items found" });
+    }
+
+    res.status(200).json(searchedElements);
+  } catch (error) {
+    // Handle errors
+    console.error("Error searching:", error);
+    next(error);
+  }
+};

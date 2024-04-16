@@ -11,7 +11,7 @@ function SelectSubCategory({ stepData, handleSubCategoryChange }) {
             key={subCat.key}
             style={{ display: "flex", justifyContent: "center", marginBottom: "20px" }}
           >
-            <div className="card" style={{ width: "288px", margin: "0 10px" }}>
+            <div className="card" style={{ width: "288px", margin: "0 10px", boxShadow: "0 4px 8px rgba(0,0,0,0.1)", border: "none" }}>
               <img src="..." className="card-img-top" alt="..." />
               <div className="card-body">
                 <h5 className="card-title">{subCat.name}</h5>
@@ -21,7 +21,7 @@ function SelectSubCategory({ stepData, handleSubCategoryChange }) {
                 </p>
               </div>
             </div>
-            <div className="card" style={{ width: "288px", margin: "0 10px" }}>
+            <div className="card" style={{ width: "288px", margin: "0 10px", boxShadow: "0 4px 8px rgba(0,0,0,0.1)", border: "none" }}>
               <img src="..." className="card-img-top" alt="..." />
               <div className="card-body">
                 <h5 className="card-title">{subCat.name}</h5>

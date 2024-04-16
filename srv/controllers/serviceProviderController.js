@@ -74,7 +74,7 @@ export const addServices = async (req, res, next) => {
           serviceKey: serviceObj.key,
           serviceName: serviceObj.name,
         });
-      }
+      } 
     }
     res.status(200).send("Services Added Successfully");
   } catch (err) {

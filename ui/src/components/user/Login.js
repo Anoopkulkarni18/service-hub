@@ -43,7 +43,7 @@ export default function ServiceProviderLogin() {
       }}
     >
       <h2 style={{ textAlign: "center", marginBottom: "20px", color: "#333" }}>
-        Service Provider Login
+       User Login
       </h2>
       <form onSubmit={handleLogin}>
         <div className="form-group">

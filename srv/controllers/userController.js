@@ -2,15 +2,15 @@ import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const verifyToken=async(req,res,next)=>{
+const verifyToken = async (req, res, next) => {
   try {
-   const decoded= jwt.verify(token,process.env.SECRET_KEY);
-   req.user=decoded;
-   next();
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    req.user = decoded;
+    next();
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
+};
 const jwtSign = (jwtBody) => {
   return jwt.sign(jwtBody, process.env.SECRET_KEY, {
     expiresIn: "1d",

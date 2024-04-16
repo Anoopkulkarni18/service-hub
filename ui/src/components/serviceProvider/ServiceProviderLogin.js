@@ -41,6 +41,9 @@ export default function ServiceProviderLogin() {
         borderRadius: "5px",
       }}
     >
+    <h2 style={{ textAlign: "center", marginBottom: "20px", color: "#333" }}>
+       Service Provider Login
+      </h2>
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">Email address</label>
@@ -55,9 +58,7 @@ export default function ServiceProviderLogin() {
             onChange={handleInputChange}
             style={{ width: "100%", padding: "10px", borderRadius: "5px" }}
           />
-          <small id="emailHelp" className="form-text text-muted">
-            We'll never share your email with anyone else.
-          </small>
+        
         </div>
         <div className="form-group">
           <label htmlFor="exampleInputPassword1">Password</label>

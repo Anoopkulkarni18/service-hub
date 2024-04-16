@@ -1,29 +1,47 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-    const handleLogout=()=>{
-        localStorage.removeItem();
-        
+  const navigate = useNavigate();
+  const [search, setSearch] = useState(" ");
+  const token = localStorage.getItem("token");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
+  const handleRegister = () => {
+    navigate("/register");
+  };
+
+  const handleSearchChange = async (event) => {
+    setSearch(event.target.value);
+  };
+
+  const handleSearch = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/srv/service/search",
+        { query: search }
+      );
+
+      console.log("Search results:", response.data);
+    } catch (error) {
+      console.error("Error searching:", error);
     }
+  };
+
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-secondary">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            Navbar
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
@@ -31,27 +49,47 @@ export default function Navbar() {
                   Home
                 </Link>
               </li>
-
-              <li className="nav-item dropdown">
-                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                </ul>
-              </li>
             </ul>
-            <form className="d-flex">
+            <form className="d-flex mx-auto">
               <input
                 className="form-control me-2"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                value={search}
+                onChange={handleSearchChange}
               />
-              <button className="btn btn-outline-success"  onClick={handleLogout} type="submit">
-                Logout
+              <button
+                className="btn btn-outline-light"
+                onClick={handleSearch}
+                type="submit"
+              >
+                Search
               </button>
             </form>
-            
+            {token ? (
+              <button
+                className="btn btn-outline-light ms-2"
+                onClick={handleLogout}
+              >
+                Sign-out
+              </button>
+            ) : (
+              <>
+                <button
+                  className="btn btn-outline-light ms-2"
+                  onClick={handleLogin}
+                >
+                  SignIn
+                </button>
+                <button
+                  className="btn btn-outline-light ms-2"
+                  onClick={handleRegister}
+                >
+                  SignUp
+                </button>
+              </>
+            )}
           </div>
         </div>
       </nav>

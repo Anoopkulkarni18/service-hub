@@ -52,9 +52,7 @@ export default function ServiceProviderRegister() {
             onChange={handleInputChange}
             style={{ width: "100%", padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }}
           />
-          <small id="emailHelp" className="form-text text-muted">
-            We'll never share your email with anyone else.
-          </small>
+          
         </div>
         <div className="form-group">
           <label htmlFor="exampleInputPassword1">Password</label>

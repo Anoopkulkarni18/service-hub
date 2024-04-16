@@ -22,6 +22,42 @@ export default function ServiceProviderHome() {
   const handleStepChange = () => {
     setStep(step + 1);
   };
+  const cardContainerStyle = {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: "20px",
+    margin: "20px 0",
+  };
+
+  const cardStyle = {
+    width: "288px",
+    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+    borderRadius: "8px",
+    overflow: "hidden",
+  };
+
+  const cardImageStyle = {
+    width: "100%",
+    height: "auto",
+    objectFit: "cover",
+  };
+
+  const cardBodyStyle = {
+    padding: "16px",
+    textAlign: "center",
+  };
+
+  const cardTitleStyle = {
+    fontSize: "1.2rem",
+    fontWeight: "bold",
+    marginBottom: "10px",
+  };
+
+  const cardTextStyle = {
+    fontSize: "1rem",
+    color: "#555",
+  };
   const handleCategoryChange = (category) => {
     setServiceDetail({
       ...serviceDetail,
@@ -90,39 +126,56 @@ export default function ServiceProviderHome() {
     };
     step === 0 ? getProviderServices() : getCategories();
   }, [step]);
+
   return (
     <div>
       <h1>Services</h1>
-      {servicesProvided.map((ser) => {
-        return (
-          <div key={ser.serviceKey}>
-            <div className="card" style={{ width: "288px" }}>
-              <img src="..." className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h5 className="card-title">{ser.serviceName}</h5>
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-              </div>
-            </div>
-            <div className="card" style={{ width: "288px" }}>
-              <img src="..." className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h5 className="card-title">{ser.serviceName}</h5>
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-              </div>
+      <div style={cardContainerStyle}>
+        {servicesProvided.map((ser) => (
+          <div key={ser.serviceKey} style={cardStyle}>
+            <img
+              src="..."
+              className="card-img-top"
+              alt="..."
+              style={cardImageStyle}
+            />
+            <div className="card-body" style={cardBodyStyle}>
+              <h5 className="card-title" style={cardTitleStyle}>
+                {ser.serviceName}
+              </h5>
+              <p className="card-text" style={cardTextStyle}>
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </p>
             </div>
           </div>
-        );
-      })}
-      <hr />
+        ))}
+      </div>
+
       {step === 0 && (
-        <div>
-          <button onClick={handleStepChange}>Add Services</button>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "20px",
+          }}
+        >
+          <button
+            onClick={handleStepChange}
+            style={{
+              padding: "10px 20px",
+              fontSize: "1rem",
+              backgroundColor: "#007bff",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+              transition: "background-color 0.3s ease",
+            }}
+          >
+            Add Services
+          </button>
         </div>
       )}
       {step === 1 && (
