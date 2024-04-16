@@ -31,7 +31,7 @@ function SubCategory({
               overflow: "hidden", // hide overflow
             }}
           >
-            {index < stepData.length / 2 && ( // Render only the first half of the data
+            {
               <div className="card" style={{ height: "100%", width: "100%", border: "none" }}>
                 <img
                   src="..."
@@ -47,7 +47,7 @@ function SubCategory({
                   </p>
                 </div>
               </div>
-            )}
+            }
           </div>
         ))}
       </div>

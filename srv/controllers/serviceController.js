@@ -33,7 +33,7 @@ export const getServices = async (req, res, next) => {
 
 export const getSearchService = async (req, res, next) => {
   try {
-    const { name } = req.body;
+    const name = req.body.query;
     const searchRegex = new RegExp(name, "i");
     const searchedElements = await Service.find({ name: searchRegex });
     if (searchedElements.length === 0) {

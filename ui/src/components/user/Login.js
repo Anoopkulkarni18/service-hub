@@ -20,11 +20,11 @@ export default function ServiceProviderLogin() {
   const handleLogin = async (e) => {
     e.preventDefault();
     const res = await axios.post(
-      "http://localhost:4000/srv/serviceProvider/login",
+      "http://localhost:4000/srv/user/login",
       formData
     );
     localStorage.setItem("token", res.data.token);
-    navigate("/service-provider-home");
+    navigate("/");
   };
 
   const goToRegister = () => {
@@ -43,7 +43,7 @@ export default function ServiceProviderLogin() {
       }}
     >
       <h2 style={{ textAlign: "center", marginBottom: "20px", color: "#333" }}>
-       User Login
+        User Login
       </h2>
       <form onSubmit={handleLogin}>
         <div className="form-group">
@@ -116,7 +116,7 @@ export default function ServiceProviderLogin() {
           boxShadow: "0 2px 4px rgba(0, 123, 255, 0.1)",
         }}
       >
-        New Service Provider
+        Register
       </button>
     </div>
   );
