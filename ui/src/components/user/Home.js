@@ -5,6 +5,7 @@ import SubCategory from "./SubCategory";
 import Services from "./Services";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import SubService from "./SubService";
 
 export default function Home() {
   const selectedStep = {
@@ -20,6 +21,7 @@ export default function Home() {
     category: "",
     subCategory: "",
     service: "",
+    subService: "",  
   });
   const handleStepChange = () => {
     setStep(step + 1);
@@ -42,6 +44,13 @@ export default function Home() {
     setServiceDetail({
       ...serviceDetail,
       service,
+    });
+    handleStepChange();
+  };
+  const handleSubServiceChange = (subService) => {
+    setServiceDetail({
+      ...serviceDetail,
+      subService,
     });
     handleStepChange();
   };
@@ -90,6 +99,12 @@ export default function Home() {
         <Services
           stepData={stepData}
           handleServiceChange={handleServiceChange}
+        />
+      )}
+      {step === 4 && (
+        <SubService
+          stepData={stepData}
+          handleSubServiceChange={handleSubServiceChange}
         />
       )}
       {step !== 1 && (

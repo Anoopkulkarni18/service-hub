@@ -40,7 +40,7 @@ export default function Navbar() {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-secondary" style={{position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1000, marginBottom: '20px'}}>
+      <nav className="navbar navbar-expand-lg navbar-light bg-secondary" style={{ top: 0, left: 0, width: '100%', zIndex: 1000, marginBottom: '20px'}}>
         <div className="container-fluid">
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">

@@ -1,10 +1,10 @@
 import React from "react";
 
-function SubCategory({ stepData, handleSubCategoryChange }) {
+function SubService({ stepData, handleSubServiceChange }) {
   return (
     <div>
       <h3 style={{ textAlign: "center", marginBottom: "20px" }}>
-        Select a sub category
+        Select a sub service
       </h3>
       <div
         style={{
@@ -14,10 +14,10 @@ function SubCategory({ stepData, handleSubCategoryChange }) {
           justifyContent: "center",
         }}
       >
-        {stepData.map((subCat, index) => (
+        {stepData.map((subService, index) => (
           <div
-            key={subCat.key}
-            onClick={() => handleSubCategoryChange(subCat.key)}
+            key={subService.key}
+            onClick={() => handleSubServiceChange(subService.key)}
             style={{
               margin: "10px",
               padding: "10px",
@@ -39,7 +39,7 @@ function SubCategory({ stepData, handleSubCategoryChange }) {
                 style={{ width: "100%" }}
               />
               <div className="card-body">
-                <h5 className="card-title">{subCat.name}</h5>
+                <h5 className="card-title">{subService.name}</h5>
                 <p className="card-text"></p>
               </div>
             </div>
@@ -50,4 +50,4 @@ function SubCategory({ stepData, handleSubCategoryChange }) {
   );
 }
 
-export default SubCategory;
+export default SubService;

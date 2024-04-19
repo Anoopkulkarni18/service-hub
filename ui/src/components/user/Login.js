@@ -116,11 +116,7 @@ export default function ServiceProviderLogin() {
           boxShadow: "0 2px 4px rgba(0, 123, 255, 0.1)",
         }}
       >
-<<<<<<< HEAD
-        New User
-=======
         Register
->>>>>>> ddc4f59f2768339d7943647b04cc03e941998325
       </button>
     </div>
   );
