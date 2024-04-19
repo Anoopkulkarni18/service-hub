@@ -28,6 +28,7 @@ function SubCategory({ stepData, handleSubCategoryChange }) {
               overflow: "hidden", // hide overflow
             }}
           >
+<<<<<<< HEAD
             
             <div
               className="card"
@@ -48,6 +49,25 @@ function SubCategory({ stepData, handleSubCategoryChange }) {
               </div>
             </div>
             )
+=======
+            {
+              <div className="card" style={{ height: "100%", width: "100%", border: "none" }}>
+                <img
+                  src="..."
+                  className="card-img-top"
+                  alt="..."
+                  style={{ width: "100%" }}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{subCat.name}</h5>
+                  <p className="card-text">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </p>
+                </div>
+              </div>
+            }
+>>>>>>> ddc4f59f2768339d7943647b04cc03e941998325
           </div>
         ))}
       </div>

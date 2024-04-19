@@ -3,7 +3,7 @@ import ServiceListModel from "../models/serviceListModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 const jwtSign = (jwtObj) => {
-  return jwt.sign({ jwtObj }, process.env.SECRET_KEY, { expiresIn: "1d" });
+  return jwt.sign(jwtObj, process.env.SECRET_KEY, { expiresIn: "1d" });
 };
 
 export const verifyToken = async (req, res, next) => {
