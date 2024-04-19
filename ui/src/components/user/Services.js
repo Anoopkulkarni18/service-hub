@@ -3,7 +3,7 @@ import React from "react";
 function Services({ stepData, handleServiceChange }) {
   return (
     <div>
-      <h3 style={{ textAlign: "center", marginBottom: "20px" }}>Select a sub category</h3>
+      <h3 style={{ textAlign: "center", marginBottom: "20px" }}>Select a service</h3>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "20px", justifyContent: "center" }}>
         {stepData.map((ser) => {
           return (

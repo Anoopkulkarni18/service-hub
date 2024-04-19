@@ -116,7 +116,7 @@ export default function ServiceProviderLogin() {
           boxShadow: "0 2px 4px rgba(0, 123, 255, 0.1)",
         }}
       >
-        New Service Provider
+        New User
       </button>
     </div>
   );

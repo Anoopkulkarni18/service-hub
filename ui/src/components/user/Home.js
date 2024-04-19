@@ -4,7 +4,7 @@ import Category from "./Category";
 import SubCategory from "./SubCategory";
 import Services from "./Services";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../Navbar";
+import Navbar from "./Navbar";
 
 export default function Home() {
   const selectedStep = {

@@ -28,9 +28,11 @@ export default function ServiceProviderLogin() {
   };
 
   const goToRegister = () => {
-    navigate("/register");
+    navigate("/service-provider-register");
   };
-
+const goToUserLogin=()=>{
+  navigate("/login")
+}
   return (
     <div
       style={{
@@ -41,9 +43,9 @@ export default function ServiceProviderLogin() {
         borderRadius: "5px",
       }}
     >
-    <h2 style={{ textAlign: "center", marginBottom: "20px", color: "#333" }}>
+    <h3 style={{ textAlign: "center", marginBottom: "20px", color: "#333" }}>
        Service Provider Login
-      </h2>
+      </h3>
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">Email address</label>
@@ -101,6 +103,21 @@ export default function ServiceProviderLogin() {
         }}
       >
         New Service Provider
+      </button>
+      <button
+        onClick={goToUserLogin}
+        style={{
+          backgroundColor: "green",
+          color: "white",
+          padding: "10px",
+          marginTop: "20px",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+          width: "100%",
+        }}
+      >
+        I am a user
       </button>
     </div>
   );

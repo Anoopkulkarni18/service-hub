@@ -13,10 +13,10 @@ export const verifyToken = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
+};
 export const handleServiceProviderRegister = async (req, res, next) => {
   try {
-    const { email, password, mobileNumber, fname, lname,city } = req.body;
+    const { email, password, mobileNumber, fname, lname, city } = req.body;
     const existingServiceProvider = await serviceProviderModel.findOne({
       email,
     });
@@ -30,7 +30,7 @@ export const handleServiceProviderRegister = async (req, res, next) => {
       mobileNumber,
       fname,
       lname,
-      city
+      city,
     });
     const token = jwtSign({ email });
     res.status(200).json({ token });
@@ -45,6 +45,9 @@ export const handleServiceProviderLogin = async (req, res, next) => {
     const currentServiceProvider = await serviceProviderModel.findOne({
       email,
     });
+    if (!currentServiceProvider) {
+      throw { statusCode: 409, message: `Email not found` };
+    }
     const isPasswordCorrect = await bcrypt.compareSync(
       password,
       currentServiceProvider.password
@@ -74,7 +77,7 @@ export const addServices = async (req, res, next) => {
           serviceKey: serviceObj.key,
           serviceName: serviceObj.name,
         });
-      } 
+      }
     }
     res.status(200).send("Services Added Successfully");
   } catch (err) {
@@ -87,7 +90,7 @@ export const getAllServices = async (req, res, next) => {
     const serviceProviderEmail = req.serviceProvider.email;
     let servicesProvided = await ServiceListModel.find({
       serviceProviderEmail,
-    }).select('serviceKey serviceName');
+    }).select("serviceKey serviceName");
     res.status(200).json({ servicesProvided });
   } catch (err) {
     next(err);

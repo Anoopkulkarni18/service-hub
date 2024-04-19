@@ -1,9 +1,6 @@
 import React from "react";
 
-function SubCategory({
-  stepData,
-  handleSubCategoryChange,
-}) {
+function SubCategory({ stepData, handleSubCategoryChange }) {
   return (
     <div>
       <h3 style={{ textAlign: "center", marginBottom: "20px" }}>
@@ -31,23 +28,26 @@ function SubCategory({
               overflow: "hidden", // hide overflow
             }}
           >
-            {index < stepData.length / 2 && ( // Render only the first half of the data
-              <div className="card" style={{ height: "100%", width: "100%", border: "none" }}>
-                <img
-                  src="..."
-                  className="card-img-top"
-                  alt="..."
-                  style={{ width: "100%" }}
-                />
-                <div className="card-body">
-                  <h5 className="card-title">{subCat.name}</h5>
-                  <p className="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                </div>
+            
+            <div
+              className="card"
+              style={{ height: "100%", width: "100%", border: "none" }}
+            >
+              <img
+                src="..."
+                className="card-img-top"
+                alt="..."
+                style={{ width: "100%" }}
+              />
+              <div className="card-body">
+                <h5 className="card-title">{subCat.name}</h5>
+                <p className="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
               </div>
-            )}
+            </div>
+            )
           </div>
         ))}
       </div>

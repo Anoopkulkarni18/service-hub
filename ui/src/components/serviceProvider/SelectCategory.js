@@ -10,7 +10,7 @@ function SelectCategory({ stepData, handleCategoryChange }) {
         style={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "center"
+          justifyContent: "center",
         }}
       >
         {stepData.map((cat) => {
@@ -22,7 +22,8 @@ function SelectCategory({ stepData, handleCategoryChange }) {
                 margin: "10px",
                 cursor: "pointer",
                 width: "288px",
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" // Add shadow
+                borderRadius: "8px", // Add border radius
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Add shadow
               }}
             >
               <div
@@ -30,7 +31,7 @@ function SelectCategory({ stepData, handleCategoryChange }) {
                 style={{
                   height: "100%",
                   width: "100%",
-                  border: "none" // Make border invisible
+                  border: "none", // Make border invisible
                 }}
               >
                 <img
@@ -40,11 +41,11 @@ function SelectCategory({ stepData, handleCategoryChange }) {
                   style={{ width: "100%" }}
                 />
                 <div className="card-body">
-                  <h5 className="card-title">{cat.name}</h5>
-                  <p className="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
+                  <h5 className="card-title" style={{ fontWeight: "bold" }}>
+                    {cat.name}
+                  </h5>{" "}
+                  {/* Make card name bold */}
+                  <p className="card-text"></p>
                 </div>
               </div>
             </div>

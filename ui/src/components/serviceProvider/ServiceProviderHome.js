@@ -4,6 +4,7 @@ import SelectCategory from "./SelectCategory";
 import SelectSubCategory from "./SelectSubCategory";
 import SelectServices from "./SelectServices";
 import { useNavigate } from "react-router-dom";
+import NavbarServiceProvider from "./NavbarServiceProvider";
 
 export default function ServiceProviderHome() {
   const selectedStep = {
@@ -128,8 +129,12 @@ export default function ServiceProviderHome() {
   }, [step]);
 
   return (
-    <div>
-      <h1>Services</h1>
+    <div style={{ paddingTop: "56px", textAlign: "center" }}>
+      <NavbarServiceProvider
+        style={{ position: "sticky", top: 0, zIndex: 1000 }}
+      />
+      <h3>Services</h3>
+
       <div style={cardContainerStyle}>
         {servicesProvided.map((ser) => (
           <div key={ser.serviceKey} style={cardStyle}>
@@ -143,10 +148,7 @@ export default function ServiceProviderHome() {
               <h5 className="card-title" style={cardTitleStyle}>
                 {ser.serviceName}
               </h5>
-              <p className="card-text" style={cardTextStyle}>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
+              <p className="card-text" style={cardTextStyle}></p>
             </div>
           </div>
         ))}
@@ -198,7 +200,22 @@ export default function ServiceProviderHome() {
           servicesProvided={servicesProvided.map((srv) => srv.serviceKey)}
         />
       )}
-      {step !== 0 && <button onClick={handleBackButton}>Back</button>}
+      {step !== 0 && (
+        <button
+          onClick={handleBackButton}
+          style={{
+            margin: "20px auto",
+            padding: "10px 20px",
+            backgroundColor: "lightgray",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            display: "block",
+          }}
+        >
+          Back
+        </button>
+      )}
     </div>
   );
 }
