@@ -6,6 +6,7 @@ import Services from "./Services";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import SubService from "./SubService";
+import Footer from "./Footer";
 
 export default function Home() {
   const selectedStep = {
@@ -123,6 +124,7 @@ export default function Home() {
           Back
         </button>
       )}
+      <Footer/>
     </div>
   );
 }

@@ -41,8 +41,8 @@ export default function NavbarServiceProvider() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-secondary mb-0 fixed-top">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/service-provider-home">
-          Home
+        <Link to="/service-provider-home">
+          <img src="#" alt="Logo" style={{ height: "50px" }} />
         </Link>
         <button
           className="navbar-toggler"
