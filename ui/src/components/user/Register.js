@@ -9,6 +9,7 @@ export default function Register() {
     mobileNumber: "",
     fname: "",
     lname: "",
+    location:""
   });
   const navigate = useNavigate();
 
@@ -105,6 +106,19 @@ export default function Register() {
             placeholder="Last Name"
             name="lname"
             value={formData.lname}
+            onChange={handleInputChange}
+            style={{ width: "100%", padding: "10px", borderRadius: "5px" }}
+          />
+        </div>
+        <div style={{ marginBottom: "20px" }}>
+          <label htmlFor="location">Location</label>
+          <input
+            type="text"
+            className="form-control"
+            id="location"
+            placeholder="Location"
+            name="location"
+            value={formData.location}
             onChange={handleInputChange}
             style={{ width: "100%", padding: "10px", borderRadius: "5px" }}
           />

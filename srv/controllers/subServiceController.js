@@ -24,7 +24,7 @@ export const getSubServices = async (req, res, next) => {
     const { service } = req.params;
     res
       .status(200)
-      .json(await SubService.find({ service }).select("name key service -_id"));
+      .json(await SubService.find({ service }).select("name key service price description -_id"));
   } catch (err) {
     next(err);
   }

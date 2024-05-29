@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
   mobileNumber: String,
   fname: String,
   lname: String,
+  location:String
 });
 
 export default mongoose.model("User", userSchema);

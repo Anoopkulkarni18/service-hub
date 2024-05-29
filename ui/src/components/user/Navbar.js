@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import Profile from "./Profile";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -37,15 +40,29 @@ export default function Navbar() {
       console.error("Error searching:", error);
     }
   };
-
+  const handleProfile = () => {
+    navigate("/profile");
+  };
+const handleCart=()=>{
+  navigate("/cart")
+}
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-secondary" style={{ top: 0, left: 0, width: '100%', zIndex: 1000, marginBottom: '20px'}}>
+      <nav
+        className="navbar navbar-expand-lg navbar-light bg-secondary"
+        style={{
+          top: 0,
+          left: 0,
+          width: "100%",
+          zIndex: 1000,
+          marginBottom: "20px",
+        }}
+      >
         <div className="container-fluid">
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-              <Link to="/">
+                <Link to="/">
                   <img src="/logo.jpg" alt="Logo" style={{ height: "60px" }} />
                 </Link>
               </li>
@@ -68,12 +85,26 @@ export default function Navbar() {
               </button>
             </form>
             {token ? (
-              <button
-                className="btn btn-outline-light ms-2"
-                onClick={handleLogout}
-              >
-                Sign-out
-              </button>
+              <>
+                <button
+                  className="btn btn-outline-light ms-2"
+                  onClick={handleProfile}
+                >
+                  <FontAwesomeIcon icon={faUser} />
+                </button>
+                <button
+                  className="btn btn-outline-light ms-2"
+                  onClick={handleCart}
+                >
+                  cart
+                </button>
+                <button
+                  className="btn btn-outline-light ms-2"
+                  onClick={handleLogout}
+                >
+                  Sign-out
+                </button>
+              </>
             ) : (
               <>
                 <button

@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CartContext } from "./context/CartContext";
 
 function SubService({ stepData, handleSubServiceChange }) {
+  const { dispatch } = useContext(CartContext);
+  const addToCart = (subService) => {
+    subService.quantity = 2;
+    dispatch({ type: "ADD", value: subService });
+  };
   return (
     <div>
       <h3 style={{ textAlign: "center", marginBottom: "20px" }}>
@@ -17,7 +23,7 @@ function SubService({ stepData, handleSubServiceChange }) {
         {stepData.map((subService, index) => (
           <div
             key={subService.key}
-            onClick={() => handleSubServiceChange(subService.key)}
+            // onClick={() => handleSubServiceChange(subService.key)}
             style={{
               margin: "10px",
               padding: "10px",
@@ -41,6 +47,7 @@ function SubService({ stepData, handleSubServiceChange }) {
               <div className="card-body">
                 <h5 className="card-title">{subService.name}</h5>
                 <p className="card-text"></p>
+                <button onClick={() => addToCart(subService)}>+</button>
               </div>
             </div>
           </div>

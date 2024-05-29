@@ -22,7 +22,7 @@ export default function Home() {
     category: "",
     subCategory: "",
     service: "",
-    subService: "",  
+    subService: "",
   });
   const handleStepChange = () => {
     setStep(step + 1);
@@ -124,7 +124,7 @@ export default function Home() {
           Back
         </button>
       )}
-      <Footer/>
+      <Footer />
     </div>
   );
 }

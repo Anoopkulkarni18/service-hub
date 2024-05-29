@@ -2,15 +2,15 @@ import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const verifyToken = async (req, res, next) => {
-  try {
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    req.user = decoded;
-    next();
-  } catch (error) {
-    next(error);
-  }
-};
+// const verifyToken = async (req, res, next) => {
+//   try {
+//     const decoded = jwt.verify(token, process.env.SECRET_KEY);
+//     req.user = decoded;
+//     next();
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 const jwtSign = (jwtBody) => {
   return jwt.sign(jwtBody, process.env.SECRET_KEY, {
     expiresIn: "1d",
@@ -54,5 +54,18 @@ export const handleLogin = async (req, res, next) => {
     res.status(200).json({ token });
   } catch (err) {
     next(err);
+  }
+};
+
+export const getSingleUser = async (req, res, next) => {
+  try {
+    const { email } = req.serviceProvider;
+    const user = await User.findOne({email}).select("-password -_id");
+    if (!user) {
+      throw { statusCode: 404, message: "User not found" };
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
   }
 };
