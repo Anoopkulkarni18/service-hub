@@ -9,7 +9,6 @@ const jwtSign = (jwtObj) => {
 export const verifyToken = async (req, res, next) => {
   try {
     req.serviceProvider = jwt.verify(req.headers.token, process.env.SECRET_KEY);
-    
     next();
   } catch (error) {
     next(error);

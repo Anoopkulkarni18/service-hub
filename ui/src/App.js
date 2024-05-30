@@ -9,6 +9,8 @@ import ServiceProviderHome from "./components/serviceProvider/ServiceProviderHom
 import Profile from "./components/user/Profile";
 import { CartProvider } from "./components/user/context/CartContext";
 import Cart from "./components/user/Cart";
+import Footer from "./components/user/Footer";
+import Navbar from "./components/user/Navbar";
 
 function App() {
   return (
@@ -16,11 +18,38 @@ function App() {
       <Router>
         <div className="App">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={
+                <>
+                  <Navbar />
+                  <Home />
+                  <Footer />
+                </>
+              }
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route
+              path="/profile"
+              element={
+                <>
+                  <Navbar />
+                  <Profile />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/cart"
+              element={
+                <>
+                  <Navbar />
+                  <Cart />
+                  <Footer />
+                </>
+              }
+            />
             <Route
               path="/service-provider-login"
               element={<ServiceProviderLogin />}

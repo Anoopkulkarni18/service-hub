@@ -3,9 +3,7 @@ import React, { useEffect, useState } from "react";
 import Category from "./Category";
 import SubCategory from "./SubCategory";
 import Services from "./Services";
-import Navbar from "./Navbar";
 import SubService from "./SubService";
-import Footer from "./Footer";
 
 export default function Home() {
   const [step, setStep] = useState(1);
@@ -52,7 +50,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    console.log("Hello", step);
     const selectedStep = {
       1: "category",
       2: "subCategory",
@@ -77,7 +74,6 @@ export default function Home() {
 
   return (
     <div>
-      <Navbar />
       {step === 0 && (
         <div>
           <button onClick={handleStepChange}>Add Services</button>
@@ -123,7 +119,6 @@ export default function Home() {
           Back
         </button>
       )}
-      <Footer />
     </div>
   );
 }
