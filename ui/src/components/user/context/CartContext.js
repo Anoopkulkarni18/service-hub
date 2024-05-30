@@ -3,11 +3,11 @@ import { createContext, useReducer } from "react";
 export const CartContext = createContext();
 
 const cartReducer = (state, action) => {
-    console.log(action,state);
   switch (action.type) {
-
     case "ADD":
       return { ...state, cart: [...state.cart, action.value] };
+    default:
+      return state;
   }
 };
 

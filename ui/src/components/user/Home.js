@@ -3,19 +3,11 @@ import React, { useEffect, useState } from "react";
 import Category from "./Category";
 import SubCategory from "./SubCategory";
 import Services from "./Services";
-import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import SubService from "./SubService";
 import Footer from "./Footer";
 
 export default function Home() {
-  const selectedStep = {
-    1: "category",
-    2: "subCategory",
-    3: "service",
-    4: "subService",
-  };
-  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [stepData, setStepData] = useState([]);
   const [serviceDetail, setServiceDetail] = useState({
@@ -60,6 +52,13 @@ export default function Home() {
   };
 
   useEffect(() => {
+    console.log("Hello", step);
+    const selectedStep = {
+      1: "category",
+      2: "subCategory",
+      3: "service",
+      4: "subService",
+    };
     const getCategories = async () => {
       const uri = `http://localhost:4000/srv/${selectedStep[step]}/getAll${
         step !== 1 ? `/${serviceDetail[selectedStep[step - 1]]}` : ""
@@ -74,7 +73,7 @@ export default function Home() {
       );
     };
     getCategories();
-  }, [step]);
+  }, [step, serviceDetail]);
 
   return (
     <div>

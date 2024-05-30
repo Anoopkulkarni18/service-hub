@@ -30,9 +30,9 @@ export default function ServiceProviderLogin() {
   const goToRegister = () => {
     navigate("/service-provider-register");
   };
-const goToUserLogin=()=>{
-  navigate("/login")
-}
+  const goToUserLogin = () => {
+    navigate("/login");
+  };
   return (
     <div
       style={{
@@ -43,8 +43,8 @@ const goToUserLogin=()=>{
         borderRadius: "5px",
       }}
     >
-    <h3 style={{ textAlign: "center", marginBottom: "20px", color: "#333" }}>
-       Service Provider Login
+      <h3 style={{ textAlign: "center", marginBottom: "20px", color: "#333" }}>
+        Service Provider Login
       </h3>
       <form onSubmit={handleLogin}>
         <div className="form-group">
@@ -60,7 +60,6 @@ const goToUserLogin=()=>{
             onChange={handleInputChange}
             style={{ width: "100%", padding: "10px", borderRadius: "5px" }}
           />
-        
         </div>
         <div className="form-group">
           <label htmlFor="exampleInputPassword1">Password</label>

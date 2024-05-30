@@ -9,7 +9,7 @@ export default function Register() {
     mobileNumber: "",
     fname: "",
     lname: "",
-    location:""
+    location: "",
   });
   const navigate = useNavigate();
 
@@ -40,9 +40,17 @@ export default function Register() {
   };
 
   return (
-    <div style={{ margin: "50px auto", maxWidth: "400px", padding: "20px", border: "1px solid #ccc", borderRadius: "5px" }}>
-    <h2 style={{ textAlign: "center", marginBottom: "20px", color: "#333" }}>
-      User Register 
+    <div
+      style={{
+        margin: "50px auto",
+        maxWidth: "400px",
+        padding: "20px",
+        border: "1px solid #ccc",
+        borderRadius: "5px",
+      }}
+    >
+      <h2 style={{ textAlign: "center", marginBottom: "20px", color: "#333" }}>
+        User Register
       </h2>
       <form onSubmit={handleRegister}>
         <div style={{ marginBottom: "20px" }}>
@@ -123,12 +131,20 @@ export default function Register() {
             style={{ width: "100%", padding: "10px", borderRadius: "5px" }}
           />
         </div>
-        <button type="submit" className="btn btn-primary" style={{ width: "100%", padding: "10px", borderRadius: "5px" }}>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          style={{ width: "100%", padding: "10px", borderRadius: "5px" }}
+        >
           Register
         </button>
       </form>
       <div style={{ marginTop: "20px" }}>
-        <button className="btn btn-link" onClick={goToLogin} style={{ marginRight: "10px" }}>
+        <button
+          className="btn btn-link"
+          onClick={goToLogin}
+          style={{ marginRight: "10px" }}
+        >
           Already a user
         </button>
         <button className="btn btn-link" onClick={goToServiceProvider}>

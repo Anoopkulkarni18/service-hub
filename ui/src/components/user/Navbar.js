@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import Profile from "./Profile";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -43,9 +42,9 @@ export default function Navbar() {
   const handleProfile = () => {
     navigate("/profile");
   };
-const handleCart=()=>{
-  navigate("/cart")
-}
+  const handleCart = () => {
+    navigate("/cart");
+  };
   return (
     <div>
       <nav

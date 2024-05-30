@@ -39,7 +39,7 @@ function Category({ stepData, handleCategoryChange }) {
                 {" "}
                 {/* remove border */}
                 <img
-                  src={`/${cat.key}.webp`} 
+                  src={`/${cat.key}.webp`}
                   className="card-img-top"
                   alt={cat.name}
                   style={{ width: "100%", borderRadius: "8px 8px 0 0" }}
@@ -65,7 +65,7 @@ function Category({ stepData, handleCategoryChange }) {
         {/* Keep the image tag as it is */}
         <img
           src="/sideImage.jpg"
-          alt="Image"
+          alt="sideImg"
           style={{ width: "100%", height: "auto" }}
         />{" "}
         {/* Image on the right side */}

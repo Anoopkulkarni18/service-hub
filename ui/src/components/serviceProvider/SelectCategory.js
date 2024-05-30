@@ -36,10 +36,27 @@ function SelectCategory({ stepData, handleCategoryChange }) {
                   overflow: "hidden",
                 }}
               >
-                <div className="card" style={{ height: "100%", width: "100%", border: "none" }}>
-                  <img src={cat.image} className="card-img-top" alt={cat.name} style={{ width: "100%", borderRadius: "8px 8px 0 0" }} />
+                <div
+                  className="card"
+                  style={{ height: "100%", width: "100%", border: "none" }}
+                >
+                  <img
+                    src={cat.image}
+                    className="card-img-top"
+                    alt={cat.name}
+                    style={{ width: "100%", borderRadius: "8px 8px 0 0" }}
+                  />
                   <div className="card-body" style={{ padding: "10px" }}>
-                    <h5 className="card-title" style={{ fontSize: "12px", margin: "5px 0", textAlign: "left" }}>{cat.name}</h5>
+                    <h5
+                      className="card-title"
+                      style={{
+                        fontSize: "12px",
+                        margin: "5px 0",
+                        textAlign: "left",
+                      }}
+                    >
+                      {cat.name}
+                    </h5>
                   </div>
                 </div>
               </div>
@@ -48,7 +65,11 @@ function SelectCategory({ stepData, handleCategoryChange }) {
         </div>
       </div>
       <div style={{ width: "40%" }}>
-        <img src="path_to_image" alt="Image" style={{ width: "100%", height: "auto" }} />
+        <img
+          src="path_to_image"
+          alt="sideImg"
+          style={{ width: "100%", height: "auto" }}
+        />
       </div>
     </div>
   );

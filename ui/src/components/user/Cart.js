@@ -4,13 +4,13 @@ import { CartContext } from "./context/CartContext";
 export default function Cart() {
   const { cart } = useContext(CartContext);
 
-//   const handleQuantityChange = (item, quantity) => {
-//     updateCart(item, quantity);
-//   };
+  //   const handleQuantityChange = (item, quantity) => {
+  //     updateCart(item, quantity);
+  //   };
 
-//   const handleRemoveItem = (item) => {
-//     removeFromCart(item);
-//   };
+  //   const handleRemoveItem = (item) => {
+  //     removeFromCart(item);
+  //   };
 
   const calculateTotal = () => {
     console.log(cart);

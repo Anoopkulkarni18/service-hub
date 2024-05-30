@@ -3,8 +3,17 @@ import React from "react";
 function Services({ stepData, handleServiceChange }) {
   return (
     <div>
-      <h3 style={{ textAlign: "center", marginBottom: "20px" }}>Select a service</h3>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px", justifyContent: "center" }}>
+      <h3 style={{ textAlign: "center", marginBottom: "20px" }}>
+        Select a service
+      </h3>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "20px",
+          justifyContent: "center",
+        }}
+      >
         {stepData.map((ser) => {
           return (
             <div
@@ -20,8 +29,18 @@ function Services({ stepData, handleServiceChange }) {
                 overflow: "hidden", // hide overflow
               }}
             >
-              <div className="card" style={{ height: "100%", width: "100%", border: "none" }}> {/* remove border */}
-                <img src="..." className="card-img-top" alt="..." style={{ width: "100%" }} />
+              <div
+                className="card"
+                style={{ height: "100%", width: "100%", border: "none" }}
+              >
+                {" "}
+                {/* remove border */}
+                <img
+                  src="..."
+                  className="card-img-top"
+                  alt="..."
+                  style={{ width: "100%" }}
+                />
                 <div className="card-body">
                   <h5 className="card-title">{ser.name}</h5>
                   <p className="card-text">

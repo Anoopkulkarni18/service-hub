@@ -3,15 +3,9 @@ import React, { useEffect, useState } from "react";
 import SelectCategory from "./SelectCategory";
 import SelectSubCategory from "./SelectSubCategory";
 import SelectServices from "./SelectServices";
-import { useNavigate } from "react-router-dom";
 import NavbarServiceProvider from "./NavbarServiceProvider";
 
 export default function ServiceProviderHome() {
-  const selectedStep = {
-    1: "category",
-    2: "subCategory",
-    3: "service",
-  };
   const [servicesProvided, setServicesProvided] = useState([]);
   const [step, setStep] = useState(0);
   const [stepData, setStepData] = useState([]);
@@ -19,7 +13,6 @@ export default function ServiceProviderHome() {
     category: "",
     subCategory: "",
   });
-  const navigate = useNavigate();
   const handleStepChange = () => {
     setStep(step + 1);
   };
@@ -84,9 +77,6 @@ export default function ServiceProviderHome() {
     setStepData([]);
     setStep(0);
   };
-  // useEffect(() => {
-  //   navigate("/service-provider-login");
-  // }, []);
   const handleCheckBoxChange = (event) => {
     const { id } = event.target;
     setStepData(
@@ -102,6 +92,11 @@ export default function ServiceProviderHome() {
     setStep(step - 1);
   };
   useEffect(() => {
+    const selectedStep = {
+      1: "category",
+      2: "subCategory",
+      3: "service",
+    };
     const getCategories = async () => {
       const uri = `http://localhost:4000/srv/${selectedStep[step]}/getAll${
         step !== 1 ? `/${serviceDetail[selectedStep[step - 1]]}` : ""
@@ -126,7 +121,7 @@ export default function ServiceProviderHome() {
       );
     };
     step === 0 ? getProviderServices() : getCategories();
-  }, [step]);
+  }, [step, serviceDetail]);
 
   return (
     <div style={{ paddingTop: "56px", textAlign: "center" }}>
