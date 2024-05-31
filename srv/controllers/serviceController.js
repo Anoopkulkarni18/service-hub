@@ -14,6 +14,7 @@ export const createService = async (req, res, next) => {
     });
     res.status(200).send("Service successfully created");
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };
