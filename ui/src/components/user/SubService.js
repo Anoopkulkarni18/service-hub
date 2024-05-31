@@ -1,11 +1,23 @@
 import React, { useContext } from "react";
 import { CartContext } from "./context/CartContext";
+import axios from "axios";
 
 function SubService({ stepData, handleSubServiceChange }) {
-  const { dispatch } = useContext(CartContext);
-  const addToCart = (subService) => {
+  const { cart, dispatch } = useContext(CartContext);
+  const addToCart = async (subService) => {
     subService.quantity = 2;
-    dispatch({ type: "ADD", value: subService });
+    const { name, key, service, description, price, quantity } = subService;
+    await axios.post(
+      "http://localhost:4000/srv/user/updateCart",
+      {
+        cart: [...cart, { name, key, service, description, price, quantity }],
+      },
+      { headers: { token: localStorage.getItem("token") } }
+    );
+    dispatch({
+      type: "ADD",
+      value: { name, key, service, description, price, quantity },
+    });
   };
   return (
     <div>

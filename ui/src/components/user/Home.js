@@ -1,11 +1,13 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Category from "./Category";
 import SubCategory from "./SubCategory";
 import Services from "./Services";
 import SubService from "./SubService";
+import { CartContext } from "./context/CartContext";
 
 export default function Home() {
+  const { dispatch } = useContext(CartContext);
   const [step, setStep] = useState(1);
   const [stepData, setStepData] = useState([]);
   const [serviceDetail, setServiceDetail] = useState({
@@ -71,6 +73,16 @@ export default function Home() {
     };
     getCategories();
   }, [step, serviceDetail]);
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      const response = await axios.get(`http://localhost:4000/srv/user/cart`, {
+        headers: { token: localStorage.getItem("token") },
+      });
+      dispatch({ type: "UPDATE", value: response?.data?.cart || [] });
+    };
+    fetchCart();
+  }, [dispatch]);
 
   return (
     <div>

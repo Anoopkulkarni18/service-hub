@@ -11,6 +11,7 @@ import { CartProvider } from "./components/user/context/CartContext";
 import Cart from "./components/user/Cart";
 import Footer from "./components/user/Footer";
 import Navbar from "./components/user/Navbar";
+import Orders from "./components/user/Orders";
 
 function App() {
   return (
@@ -46,6 +47,16 @@ function App() {
                 <>
                   <Navbar />
                   <Cart />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/orders"
+              element={
+                <>
+                  <Navbar />
+                  <Orders />
                   <Footer />
                 </>
               }

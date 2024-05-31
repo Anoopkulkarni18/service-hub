@@ -31,6 +31,7 @@ export const handleRegister = async (req, res, next) => {
       mobileNumber,
       fname,
       lname,
+      cart: [],
     });
     const token = jwtSign({ email });
     res.status(200).json({ token });
@@ -60,12 +61,34 @@ export const handleLogin = async (req, res, next) => {
 export const getSingleUser = async (req, res, next) => {
   try {
     const { email } = req.serviceProvider;
-    const user = await User.findOne({email}).select("-password -_id");
+    const user = await User.findOne({ email }).select("-password -_id");
     if (!user) {
       throw { statusCode: 404, message: "User not found" };
     }
     res.status(200).json(user);
   } catch (error) {
     next(error);
+  }
+};
+
+export const updateCart = async (req, res, next) => {
+  try {
+    const { email } = req.serviceProvider;
+    const { cart } = req.body;
+    const updatedUser = await User.updateOne({ email }, { $set: { cart } });
+    res.status(200).json({ user: updatedUser });
+  } catch (err) {
+    console.error("Error updating cart:", err);
+    next(err);
+  }
+};
+
+export const getCart = async (req, res, next) => {
+  try {
+    const { email } = req.serviceProvider;
+    const user = await User.findOne({ email });
+    res.status(200).json({ cart: user.cart });
+  } catch (err) {
+    next(err);
   }
 };

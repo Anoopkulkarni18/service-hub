@@ -19,7 +19,7 @@ export const createOrder = async (req, res, next) => {
       pincode,
       userMobileNumber,
     } = req.body;
-    const user = await User.findOne({ email }).select("fname lname  -_id");
+    const user = await User.findOne({ email }).select("fname lname cart  -_id");
     if (!user) {
       throw { status: 400 };
     }
@@ -33,7 +33,10 @@ export const createOrder = async (req, res, next) => {
       state,
       pincode,
       userMobileNumber,
+      items: user.cart,
+      status: "Pending",
     });
+    await User.updateOne({ email }, { $set: { cart: [] } });
     res.status(200).json({
       status: "success",
       orderId: order.orderId,

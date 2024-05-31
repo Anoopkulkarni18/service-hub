@@ -45,6 +45,9 @@ export default function Navbar() {
   const handleCart = () => {
     navigate("/cart");
   };
+  const handleOrders = () => {
+    navigate("/orders");
+  };
   return (
     <div>
       <nav
@@ -90,6 +93,12 @@ export default function Navbar() {
                   onClick={handleProfile}
                 >
                   <FontAwesomeIcon icon={faUser} />
+                </button>
+                <button
+                  className="btn btn-outline-light ms-2"
+                  onClick={handleOrders}
+                >
+                  orders
                 </button>
                 <button
                   className="btn btn-outline-light ms-2"

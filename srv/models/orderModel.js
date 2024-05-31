@@ -1,5 +1,14 @@
 import mongoose from "mongoose";
 
+const itemsSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  key: { type: String, required: true },
+  service: { type: String, required: true },
+  description: { type: String, required: true },
+  price: { type: Number, required: true },
+  quantity: { type: Number, required: true },
+});
+
 const orderSchema = new mongoose.Schema(
   {
     orderId: String,
@@ -14,6 +23,8 @@ const orderSchema = new mongoose.Schema(
     pincode: String,
     userName: String,
     serviceProviderName: String,
+    status: String,
+    items: [itemsSchema],
   },
   {
     timestamps: { createdAt: true, updatedAt: false },
