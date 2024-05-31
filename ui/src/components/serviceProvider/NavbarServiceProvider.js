@@ -24,6 +24,10 @@ export default function NavbarServiceProvider() {
     setSearch(event.target.value);
   };
 
+  const handleOrder = () => {
+    navigate("/service-provider-orders");
+  };
+
   const handleSearch = async (event) => {
     event.preventDefault();
     try {
@@ -74,12 +78,26 @@ export default function NavbarServiceProvider() {
             </button>
           </form>
           {token ? (
-            <button
-              className="btn btn-outline-light ms-2"
-              onClick={handleLogout}
-            >
-              Sign-out
-            </button>
+            <>
+              <button
+                className="btn btn-outline-light ms-2"
+                onClick={handleOrder}
+              >
+                Orders
+              </button>
+              <button
+                className="btn btn-outline-light ms-2"
+                onClick={handleLogout}
+              >
+                Completed Orders
+              </button>
+              <button
+                className="btn btn-outline-light ms-2"
+                onClick={handleLogout}
+              >
+                Sign-out
+              </button>
+            </>
           ) : (
             <>
               <button

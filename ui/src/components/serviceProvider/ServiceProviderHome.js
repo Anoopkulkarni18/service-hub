@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import SelectCategory from "./SelectCategory";
 import SelectSubCategory from "./SelectSubCategory";
 import SelectServices from "./SelectServices";
-import NavbarServiceProvider from "./NavbarServiceProvider";
 
 export default function ServiceProviderHome() {
   const [servicesProvided, setServicesProvided] = useState([]);
@@ -125,9 +124,6 @@ export default function ServiceProviderHome() {
 
   return (
     <div style={{ paddingTop: "56px", textAlign: "center" }}>
-      <NavbarServiceProvider
-        style={{ position: "sticky", top: 0, zIndex: 1000 }}
-      />
       <h3>Services</h3>
 
       <div style={cardContainerStyle}>

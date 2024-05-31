@@ -100,21 +100,34 @@ const Orders = () => {
         <OrderTitle>Orders</OrderTitle>
         {orders.map((item) => (
           <OrderCard key={item.orderId}>
-            <OrderDetail><strong>Order ID:</strong> {item.orderId}</OrderDetail>
-            <OrderDetail><strong>Order Status:</strong> {item.status}</OrderDetail>
-            <OrderDetail><strong>Name:</strong> {item.userName}</OrderDetail>
+            <OrderDetail>
+              <strong>Order ID:</strong> {item.orderId}
+            </OrderDetail>
+            <OrderDetail>
+              <strong>Order Status:</strong> {item.status}
+            </OrderDetail>
+            <OrderDetail>
+              <strong>Name:</strong> {item.userName}
+            </OrderDetail>
             <Address>
               <AddressTitle>Address:</AddressTitle>
-              <OrderDetail>{item.addressLine1 || "NA"}, {item.addressLine2 || "NA"}</OrderDetail>
-              <OrderDetail>{item.city}, {item.state} - {item.pincode}</OrderDetail>
-              <OrderDetail>{item.userMobileNumber || "Mobile Number"}, {item.userEmail}</OrderDetail>
+              <OrderDetail>
+                {item.addressLine1 || "NA"}, {item.addressLine2 || "NA"}
+              </OrderDetail>
+              <OrderDetail>
+                {item.city}, {item.state} - {item.pincode}
+              </OrderDetail>
+              <OrderDetail>
+                {item.userMobileNumber || "Mobile Number"}, {item.userEmail}
+              </OrderDetail>
             </Address>
             <hr />
             <ServicePartner>
-              Service Partner Name: {item.serviceProviderName || "Not Assigned"}
+              Service Partner: {item.serviceProviderName || "Not Assigned"}
             </ServicePartner>
             <OrderDetail>
-              Service Partner Mobile Number: {item.serviceProviderMobileNumber || "Not Assigned"}
+              Service Partner Mobile Number:{" "}
+              {item.serviceProviderModileNumber || "Not Assigned"}
             </OrderDetail>
           </OrderCard>
         ))}

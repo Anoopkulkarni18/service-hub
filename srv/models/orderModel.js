@@ -25,6 +25,7 @@ const orderSchema = new mongoose.Schema(
     serviceProviderName: String,
     status: String,
     items: [itemsSchema],
+    service: String,
   },
   {
     timestamps: { createdAt: true, updatedAt: false },

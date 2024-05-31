@@ -12,6 +12,8 @@ import Cart from "./components/user/Cart";
 import Footer from "./components/user/Footer";
 import Navbar from "./components/user/Navbar";
 import Orders from "./components/user/Orders";
+import NavbarServiceProvider from "./components/serviceProvider/NavbarServiceProvider";
+import ServiceProviderOrders from "./components/serviceProvider/ServiceProviderOrders";
 
 function App() {
   return (
@@ -71,7 +73,25 @@ function App() {
             />
             <Route
               path="/service-provider-home"
-              element={<ServiceProviderHome />}
+              element={
+                <>
+                  <NavbarServiceProvider
+                    style={{ position: "sticky", top: 0, zIndex: 1000 }}
+                  />
+                  <ServiceProviderHome />
+                </>
+              }
+            />
+            <Route
+              path="/service-provider-orders"
+              element={
+                <>
+                  <NavbarServiceProvider
+                    style={{ position: "sticky", top: 0, zIndex: 1000 }}
+                  />
+                  <ServiceProviderOrders />
+                </>
+              }
             />
           </Routes>
         </div>

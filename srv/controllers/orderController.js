@@ -1,6 +1,7 @@
 import Order from "../models/orderModel.js";
 import User from "./../models/userModel.js";
 import serviceProviderModel from "../models/serviceProviderModel.js";
+import ServiceListModel from "../models/serviceListModel.js";
 
 const generateOrderId = () => {
   const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, "");
@@ -20,26 +21,39 @@ export const createOrder = async (req, res, next) => {
       userMobileNumber,
     } = req.body;
     const user = await User.findOne({ email }).select("fname lname cart  -_id");
+
+    const serviceObj = {};
+    for (const cartObj of user.cart) {
+      if (serviceObj[cartObj.service]) {
+        serviceObj[cartObj.service] = [...serviceObj[cartObj.service], cartObj];
+      } else {
+        serviceObj[cartObj.service] = [cartObj];
+      }
+    }
+
     if (!user) {
       throw { status: 400 };
     }
-    const order = await Order.create({
-      orderId: generateOrderId(),
-      userEmail: email,
-      userName: `${user.fname} ${user.lname}`,
-      addressLine1,
-      addressLine2,
-      city,
-      state,
-      pincode,
-      userMobileNumber,
-      items: user.cart,
-      status: "Pending",
-    });
+    for (const sr in serviceObj) {
+      await Order.create({
+        orderId: generateOrderId(),
+        userEmail: email,
+        userName: `${user.fname} ${user.lname}`,
+        addressLine1,
+        addressLine2,
+        city,
+        state,
+        pincode,
+        userMobileNumber,
+        service: sr,
+        items: serviceObj[sr],
+        status: "Pending",
+      });
+    }
+
     await User.updateOne({ email }, { $set: { cart: [] } });
     res.status(200).json({
       status: "success",
-      orderId: order.orderId,
     });
   } catch (err) {
     next(err);
@@ -80,10 +94,29 @@ export const acceptOrder = async (req, res, next) => {
           serviceProviderEmail: email,
           serviceProviderModileNumber: serviceProvider.mobileNumber,
           serviceProviderName: `${serviceProvider.fname} ${serviceProvider.lname}`,
+          status: "Accepted",
         },
       }
     );
     res.status(200).json({ order });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getSPOrders = async (req, res, next) => {
+  try {
+    const { email } = req.serviceProvider;
+    const serviceProvider = await serviceProviderModel.findOne({ email });
+    let servicesProvided = await ServiceListModel.find({
+      serviceProviderEmail: email,
+    }).select("serviceKey serviceName");
+    const orders = await Order.find({
+      status: "Pending",
+      city: serviceProvider.city,
+      service: { $in: servicesProvided.map((item) => item.serviceKey) },
+    }).sort({ createdAt: 1 });
+    res.status(200).json({ orders });
   } catch (err) {
     next(err);
   }
