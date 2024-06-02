@@ -19,7 +19,7 @@ const jwtSign = (jwtBody) => {
 
 export const handleRegister = async (req, res, next) => {
   try {
-    const { email, password, mobileNumber, fname, lname } = req.body;
+    const { email, password, mobileNumber, fname, lname, location } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 10);
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -31,6 +31,7 @@ export const handleRegister = async (req, res, next) => {
       mobileNumber,
       fname,
       lname,
+      location,
       cart: [],
     });
     const token = jwtSign({ email });
@@ -91,4 +92,12 @@ export const getCart = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+};
+
+export const deleteCart = async (req, res, next) => {
+  try {
+    const { id } = req.serviceProvider;
+    
+
+  } catch (error) {}
 };

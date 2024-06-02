@@ -124,6 +124,10 @@ const Cart = () => {
     setAddress({ ...address, [e.target.name]: e.target.value });
   };
 
+  const isFormValid = () => {
+    return Object.values(address).every((value) => value.trim() !== "");
+  };
+
   const handleBook = async () => {
     try {
       await axios.post("http://localhost:4000/srv/order/create", address, {
@@ -200,7 +204,7 @@ const Cart = () => {
         ) : (
           <p style={{ textAlign: 'center', color: '#888', marginTop: '20px' }}>Add Items to Proceed</p>
         )}
-        <BookButton onClick={handleBook} disabled={!cart.length}>
+        <BookButton onClick={handleBook} disabled={!cart.length || !isFormValid()}>
           Book Service
         </BookButton>
       </CartContainer>

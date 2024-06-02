@@ -1,12 +1,60 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import styled, { createGlobalStyle } from "styled-components";
 
-function Profile() {
+const GlobalStyle = createGlobalStyle`
+  body {
+    background: linear-gradient(135deg, #f3e7e9 0%, #e3eeff 100%);
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+  }
+`;
+
+const ProfileContainer = styled.div`
+  text-align: center;
+  margin-top: 50px;
+  background-color: #f3f3f3;
+  padding: 20px;
+`;
+
+const ProfileCard = styled.div`
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px; /* Added bottom margin */
+`;
+
+const Title = styled.h2`
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  background: linear-gradient(135deg, #ff6f61 0%, #de4839 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
+
+const ProfileDetail = styled.p`
+  font-size: 16px;
+  color: #555;
+  margin: 5px 0;
+`;
+
+const Profile = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { id: userId } = useParams();
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -38,35 +86,27 @@ function Profile() {
   }
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <div
-        style={{
-          marginTop: "20px",
-          padding: "20px",
-          border: "1px solid #ddd",
-          borderRadius: "8px",
-          maxWidth: "400px",
-          marginLeft: "auto",
-          marginRight: "auto",
-          backgroundColor: "#f9f9f9",
-        }}
-      >
-        <h2 style={{ color: "#333", marginBottom: "20px" }}>Profile Details</h2>
-        <p style={{ fontSize: "16px", color: "#555", margin: "5px 0" }}>
-          <strong>Name:</strong> {user.fname} {user.lname}
-        </p>
-        <p style={{ fontSize: "16px", color: "#555", margin: "5px 0" }}>
-          <strong>Email:</strong> {user.email}
-        </p>
-        <p style={{ fontSize: "16px", color: "#555", margin: "5px 0" }}>
-          <strong>Mobile:</strong> {user.mobileNumber}
-        </p>
-        <p style={{ fontSize: "16px", color: "#555", margin: "5px 0" }}>
-          <strong>Location:</strong> {user.location}
-        </p>
-      </div>
-    </div>
+    <>
+      <GlobalStyle />
+      <ProfileContainer>
+        <ProfileCard>
+          <Title>Profile Details</Title>
+          <ProfileDetail>
+            <strong>Name:</strong> {user.fname} {user.lname}
+          </ProfileDetail>
+          <ProfileDetail>
+            <strong>Email:</strong> {user.email}
+          </ProfileDetail>
+          <ProfileDetail>
+            <strong>Mobile:</strong> {user.mobileNumber}
+          </ProfileDetail>
+          <ProfileDetail>
+            <strong>Location:</strong> {user.location}
+          </ProfileDetail>
+        </ProfileCard>
+      </ProfileContainer>
+    </>
   );
-}
+};
 
 export default Profile;
