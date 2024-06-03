@@ -1,121 +1,42 @@
-import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import Category from "./Category";
 import SubCategory from "./SubCategory";
 import Services from "./Services";
 import SubService from "./SubService";
 import { CartContext } from "./context/CartContext";
+import { ServiceContext } from "./context/ServiceContext";
+import { axiosRequest } from "./util/fetchService";
 
 export default function Home() {
-  const { dispatch } = useContext(CartContext);
-  const [step, setStep] = useState(1);
-  const [stepData, setStepData] = useState([]);
-  const [serviceDetail, setServiceDetail] = useState({
-    category: "",
-    subCategory: "",
-    service: "",
-    subService: "",
-  });
-  const handleStepChange = () => {
-    setStep(step + 1);
-  };
-  const handleCategoryChange = (category) => {
-    setServiceDetail({
-      ...serviceDetail,
-      category,
-    });
-    handleStepChange();
-  };
-  const handleSubCategoryChange = (subCategory) => {
-    setServiceDetail({
-      ...serviceDetail,
-      subCategory,
-    });
-    handleStepChange();
-  };
-  const handleServiceChange = (service) => {
-    setServiceDetail({
-      ...serviceDetail,
-      service,
-    });
-    handleStepChange();
-  };
-  const handleSubServiceChange = (subService) => {
-    setServiceDetail({
-      ...serviceDetail,
-      subService,
-    });
-    handleStepChange();
-  };
+  const { cartDispatch } = useContext(CartContext);
+  const { serviceState, serviceDispatch } = useContext(ServiceContext);
+
   const handleBackButton = () => {
-    setStep(step - 1);
+    serviceDispatch({
+      type: "SET_TYPE_STEP",
+      value: { step: serviceState.step - 1 },
+    });
   };
-
-  useEffect(() => {
-    const selectedStep = {
-      1: "category",
-      2: "subCategory",
-      3: "service",
-      4: "subService",
-    };
-    const getCategories = async () => {
-      const uri = `http://localhost:4000/srv/${selectedStep[step]}/getAll${
-        step !== 1 ? `/${serviceDetail[selectedStep[step - 1]]}` : ""
-      }`;
-      setStepData(
-        (await axios.get(uri)).data.map((item) => {
-          return {
-            ...item,
-            checked: false,
-          };
-        })
-      );
-    };
-    getCategories();
-  }, [step, serviceDetail]);
-
   useEffect(() => {
     const fetchCart = async () => {
-      const response = await axios.get(`http://localhost:4000/srv/user/cart`, {
-        headers: { token: localStorage.getItem("token") },
-      });
-      dispatch({ type: "UPDATE", value: response?.data?.cart || [] });
+      const response = await axiosRequest(
+        "get",
+        `http://localhost:4000/srv/user/cart`,
+        null,
+        localStorage.getItem("token")
+      );
+      cartDispatch({ type: "UPDATE", value: response?.cart || [] });
     };
     fetchCart();
-  }, [dispatch]);
+  }, [cartDispatch]);
 
   return (
     <div>
-      {step === 0 && (
-        <div>
-          <button onClick={handleStepChange}>Add Services</button>
-        </div>
-      )}
-      {step === 1 && (
-        <Category
-          stepData={stepData}
-          handleCategoryChange={handleCategoryChange}
-        />
-      )}
-      {step === 2 && (
-        <SubCategory
-          stepData={stepData}
-          handleSubCategoryChange={handleSubCategoryChange}
-        />
-      )}
-      {step === 3 && (
-        <Services
-          stepData={stepData}
-          handleServiceChange={handleServiceChange}
-        />
-      )}
-      {step === 4 && (
-        <SubService
-          stepData={stepData}
-          handleSubServiceChange={handleSubServiceChange}
-        />
-      )}
-      {step !== 1 && (
+      {serviceState.step === 1 && <Category />}
+      {serviceState.step === 2 && <SubCategory />}
+      {serviceState.step === 3 && <Services />}
+      {serviceState.step === 4 && <SubService />}
+      {serviceState.step !== 1 && (
         <button
           onClick={handleBackButton}
           style={{

@@ -74,7 +74,6 @@ const ServiceProviderOrders = () => {
           headers: { token: localStorage.getItem("token") },
         }
       );
-      console.log(response.data.orders);
       setOrders(response.data.orders);
     };
     fetchOrders();

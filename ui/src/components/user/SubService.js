@@ -1,10 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { CartContext } from "./context/CartContext";
 import axios from "axios";
+import { ServiceContext } from "./context/ServiceContext";
+import { getStepData } from "./util/fetchService";
 
-function SubService({ stepData, handleSubServiceChange }) {
-  const { cart, dispatch } = useContext(CartContext);
-
+function SubService({ stepData }) {
+  const { cart, cartDispatch } = useContext(CartContext);
+  const { serviceState, serviceDispatch } = useContext(ServiceContext);
+  useEffect(() => {
+    const getCategories = async () => {
+      const value = await getStepData(serviceState);
+      serviceDispatch({
+        type: "SET_STEP_DATA",
+        value,
+      });
+    };
+    getCategories();
+  }, []);
   const addToCart = async (subService) => {
     subService.quantity = 2;
     const { name, key, service, description, price, quantity } = subService;
@@ -15,7 +27,7 @@ function SubService({ stepData, handleSubServiceChange }) {
       },
       { headers: { token: localStorage.getItem("token") } }
     );
-    dispatch({
+    cartDispatch({
       type: "ADD",
       value: { name, key, service, description, price, quantity },
     });
@@ -79,14 +91,19 @@ function SubService({ stepData, handleSubServiceChange }) {
     <div>
       <h3 style={containerStyle}>Select a sub service</h3>
       <div style={gridStyle}>
-        {stepData.map((subService, index) => (
+        {serviceState?.stepData?.map((subService, index) => (
           <div
             key={subService.key}
             style={cardStyle}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = cardHoverStyle.transform)}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.transform = cardHoverStyle.transform)
+            }
             onMouseLeave={(e) => (e.currentTarget.style.transform = "none")}
           >
-            <div className="card" style={{ height: "100%", width: "100%", border: "none" }}>
+            <div
+              className="card"
+              style={{ height: "100%", width: "100%", border: "none" }}
+            >
               <img
                 src={`/${subService.key}.jpeg.jpg`}
                 className="card-img-top"
@@ -94,13 +111,23 @@ function SubService({ stepData, handleSubServiceChange }) {
                 style={imgStyle}
               />
               <div className="card-body" style={cardBodyStyle}>
-                <h5 className="card-title" style={cardTitleStyle}>{subService.name}</h5>
-                <h5 className="card-title" style={cardTitleStyle}>price:{subService.price}</h5>
+                <h5 className="card-title" style={cardTitleStyle}>
+                  {subService.name}
+                </h5>
+                <h5 className="card-title" style={cardTitleStyle}>
+                  price:{subService.price}
+                </h5>
                 <p className="card-text">{subService.description}</p>
                 <button
                   style={buttonStyle}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = buttonHoverStyle.backgroundColor)}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = buttonStyle.backgroundColor)}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.backgroundColor =
+                      buttonHoverStyle.backgroundColor)
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.backgroundColor =
+                      buttonStyle.backgroundColor)
+                  }
                   onClick={() => addToCart(subService)}
                 >
                   +

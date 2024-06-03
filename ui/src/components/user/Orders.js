@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import styled, { createGlobalStyle } from "styled-components";
+import { axiosRequest } from "./util/fetchService";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -82,13 +82,13 @@ const Orders = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const response = await axios.get(
+      const response = await axiosRequest(
+        "get",
         `http://localhost:4000/srv/order/getAllOrders`,
-        {
-          headers: { token: localStorage.getItem("token") },
-        }
+        null,
+        localStorage.getItem("token")
       );
-      setOrders(response.data.orders);
+      setOrders(response?.orders);
     };
     fetchOrders();
   }, []);

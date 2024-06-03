@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import { CartContext } from "./context/CartContext";
 import { useNavigate } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
+import { axiosRequest } from "./util/fetchService";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -96,7 +96,7 @@ const BookButton = styled.button`
 
 const Cart = () => {
   const navigate = useNavigate();
-  const { cart, dispatch } = useContext(CartContext);
+  const { cart, cartDispatch } = useContext(CartContext);
   const [address, setAddress] = useState({
     addressLine1: "",
     addressLine2: "",
@@ -108,13 +108,16 @@ const Cart = () => {
 
   useEffect(() => {
     const fetchCart = async () => {
-      const response = await axios.get(`http://localhost:4000/srv/user/cart`, {
-        headers: { token: localStorage.getItem("token") },
-      });
-      dispatch({ type: "UPDATE", value: response?.data?.cart || [] });
+      const response = await axiosRequest(
+        "get",
+        `http://localhost:4000/srv/user/cart`,
+        null,
+        localStorage.getItem("token")
+      );
+      cartDispatch({ type: "UPDATE", value: response?.cart || [] });
     };
     fetchCart();
-  }, [dispatch]);
+  }, [cartDispatch]);
 
   const calculateTotal = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -130,10 +133,13 @@ const Cart = () => {
 
   const handleBook = async () => {
     try {
-      await axios.post("http://localhost:4000/srv/order/create", address, {
-        headers: { token: localStorage.getItem("token") },
-      });
-      dispatch({ type: "UPDATE", value: [] });
+      await axiosRequest(
+        "post",
+        "http://localhost:4000/srv/order/create",
+        address,
+        localStorage.getItem("token")
+      );
+      cartDispatch({ type: "UPDATE", value: [] });
       setAddress({
         addressLine1: "",
         addressLine2: "",
@@ -156,7 +162,8 @@ const Cart = () => {
         {cart.map((item) => (
           <CartItem key={item.key}>
             <CartItemText>
-              <strong>{item.name}</strong> - Rs {item.price} - {item.quantity} nos
+              <strong>{item.name}</strong> - Rs {item.price} - {item.quantity}{" "}
+              nos
             </CartItemText>
           </CartItem>
         ))}
@@ -202,14 +209,25 @@ const Cart = () => {
             />
           </AddressContainer>
         ) : (
-          <p style={{ textAlign: 'center', color: '#888', marginTop: '20px' }}>Add Items to Proceed</p>
+          <p
+            style={{
+              textAlign: "center",
+              color: "#888",
+              marginTop: "20px",
+            }}
+          >
+            Add Items to Proceed
+          </p>
         )}
-        <BookButton onClick={handleBook} disabled={!cart.length || !isFormValid()}>
+        <BookButton
+          onClick={handleBook}
+          disabled={!cart.length || !isFormValid()}
+        >
           Book Service
         </BookButton>
       </CartContainer>
     </>
   );
-}
+};
 
 export default Cart;

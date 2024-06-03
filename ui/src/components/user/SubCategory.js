@@ -1,6 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useContext } from "react";
+import { ServiceContext } from "./context/ServiceContext";
+import { getStepData } from "./util/fetchService";
 
-function SubCategory({ stepData, handleSubCategoryChange }) {
+function SubCategory() {
+  const { serviceState, serviceDispatch } = useContext(ServiceContext);
+
+  const handleSubCategoryChange = (subCategory) => {
+    serviceDispatch({
+      type: "SET_TYPE_STEP",
+      value: { subCategory, step: serviceState.step + 1 },
+    });
+  };
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const value = await getStepData(serviceState);
+      serviceDispatch({
+        type: "SET_STEP_DATA",
+        value,
+      });
+    };
+    getCategories();
+  }, []);
+
   return (
     <div>
       <h3 style={{ textAlign: "center", marginBottom: "20px" }}>
@@ -14,7 +37,7 @@ function SubCategory({ stepData, handleSubCategoryChange }) {
           justifyContent: "center",
         }}
       >
-        {stepData.map((subCat, index) => (
+        {serviceState.stepData.map((subCat, index) => (
           <div
             key={subCat.key}
             onClick={() => handleSubCategoryChange(subCat.key)}
@@ -33,7 +56,7 @@ function SubCategory({ stepData, handleSubCategoryChange }) {
               style={{ height: "100%", width: "100%", border: "none" }}
             >
               <img
-               src={`/${subCat.key}.jpeg`}
+                src={`/${subCat.key}.jpeg`}
                 className="card-img-top"
                 alt="..."
                 style={{ width: "100%" }}

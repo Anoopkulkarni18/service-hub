@@ -1,6 +1,27 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { ServiceContext } from "./context/ServiceContext";
+import { getStepData } from "./util/fetchService";
 
-function Category({ stepData, handleCategoryChange }) {
+function Category() {
+  const { serviceState, serviceDispatch } = useContext(ServiceContext);
+  const handleCategoryChange = (category) => {
+    serviceDispatch({
+      type: "SET_TYPE_STEP",
+      value: { category, step: serviceState.step + 1 },
+    });
+  };
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const value = await getStepData(serviceState);
+      serviceDispatch({
+        type: "SET_STEP_DATA",
+        value,
+      });
+    };
+    getCategories();
+  }, []);
+
   return (
     <div style={{ display: "flex", gap: "20px" }}>
       <div
@@ -18,7 +39,7 @@ function Category({ stepData, handleCategoryChange }) {
             justifyContent: "flex-start",
           }}
         >
-          {stepData.map((cat) => (
+          {serviceState?.stepData?.map((cat) => (
             <div
               key={cat.key}
               onClick={() => handleCategoryChange(cat.key)}
