@@ -100,6 +100,8 @@ function SubService({ stepData }) {
     backgroundColor: "#218838",
   };
 
+  console.log(stepData);
+
   return (
     <div>
       <h3 style={containerStyle}>Select a sub service</h3>

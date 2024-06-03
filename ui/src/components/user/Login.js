@@ -36,90 +36,122 @@ export default function ServiceProviderLogin() {
   return (
     <div
       style={{
-        margin: "50px auto",
-        maxWidth: "400px",
-        padding: "20px",
-        border: "1px solid #ddd",
-        borderRadius: "10px",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        background: "linear-gradient(to right, #c1dfc4, #deecdd)", // Light green gradient background
       }}
     >
-      <h2 style={{ textAlign: "center", marginBottom: "20px", color: "#333" }}>
-        User Login
-      </h2>
-      <form onSubmit={handleLogin}>
-        <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Email address</label>
-          <input
-            type="email"
-            className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="Enter email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            style={{
-              width: "100%",
-              padding: "10px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-            }}
-          />
-          <small id="emailHelp" className="form-text text-muted">
-            We'll never share your email with anyone else.
-          </small>
-        </div>
-        <div className="form-group">
-          <label htmlFor="exampleInputPassword1">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            id="exampleInputPassword1"
-            placeholder="Password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            style={{
-              width: "100%",
-              padding: "10px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-            }}
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="btn btn-success"
-          style={{
-            width: "100%",
-            padding: "10px",
-            borderRadius: "5px",
-            marginTop: "10px",
-            background: "#28a745",
-            border: "none",
-          }}
-        >
-          Submit
-        </button>
-      </form>
-      <button
-        onClick={goToRegister}
+      <div
         style={{
-          backgroundColor: "#007bff",
-          color: "#fff",
-          padding: "10px",
-          marginTop: "20px",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
+          backgroundColor: "#fff",
+          padding: "40px",
+          borderRadius: "15px",
+          boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)",
+          maxWidth: "400px",
           width: "100%",
-          boxShadow: "0 2px 4px rgba(0, 123, 255, 0.1)",
         }}
       >
-        Register
-      </button>
+        <h2
+          style={{
+            textAlign: "center",
+            marginBottom: "30px",
+            color: "#333",
+            fontFamily: "'Montserrat', sans-serif",
+            fontWeight: "700",
+          }}
+        >
+          User Login
+        </h2>
+        <form onSubmit={handleLogin}>
+          <div className="form-group" style={{ marginBottom: "20px" }}>
+            <label htmlFor="exampleInputEmail1">Email address</label>
+            <input
+              type="email"
+              className="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Enter email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              style={{
+                width: "100%",
+                padding: "12px",
+                borderRadius: "10px",
+                border: "1px solid #ddd",
+                fontFamily: "'Roboto', sans-serif",
+              }}
+            />
+            {/* <small id="emailHelp" className="form-text text-muted">
+              We'll never share your email with anyone else.
+            </small> */}
+          </div>
+          <div className="form-group" style={{ marginBottom: "20px" }}>
+            <label htmlFor="exampleInputPassword1">Password</label>
+            <input
+              type="password"
+              className="form-control"
+              id="exampleInputPassword1"
+              placeholder="Password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              style={{
+                width: "100%",
+                padding: "12px",
+                borderRadius: "10px",
+                border: "1px solid #ddd",
+                fontFamily: "'Roboto', sans-serif",
+              }}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-success"
+            style={{
+              width: "100%",
+              padding: "12px",
+              borderRadius: "10px",
+              marginTop: "10px",
+              background: "linear-gradient(to right, #76b852, #8DC26F)", // Light green gradient for button
+              border: "none",
+              color: "#fff",
+              fontFamily: "'Montserrat', sans-serif",
+              fontWeight: "600",
+              cursor: "pointer",
+              transition: "background 0.3s ease",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "linear-gradient(to right, #8DC26F, #76b852)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "linear-gradient(to right, #76b852, #8DC26F)")}
+          >
+            Submit
+          </button>
+        </form>
+        <button
+          onClick={goToRegister}
+          style={{
+            backgroundColor: "#57c1eb", // Light blue background for register button
+            color: "#fff",
+            padding: "12px",
+            marginTop: "20px",
+            border: "none",
+            borderRadius: "10px",
+            cursor: "pointer",
+            width: "100%",
+            fontFamily: "'Montserrat', sans-serif",
+            fontWeight: "600",
+            boxShadow: "0 2px 4px rgba(31, 64, 55, 0.2)",
+            transition: "background 0.3s ease",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#4fa3d3")}
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#57c1eb")}
+        >
+          Register
+        </button>
+      </div>
     </div>
   );
 }
