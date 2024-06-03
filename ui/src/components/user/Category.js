@@ -1,6 +1,7 @@
 import React from "react";
 
 function Category({ stepData, handleCategoryChange }) {
+  console.log(stepData);
   return (
     <div style={{ display: "flex", gap: "20px" }}>
       <div

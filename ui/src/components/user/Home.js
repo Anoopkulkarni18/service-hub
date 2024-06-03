@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import Category from "./Category";
 import SubCategory from "./SubCategory";
 import Services from "./Services";
@@ -16,39 +16,46 @@ export default function Home() {
     service: "",
     subService: "",
   });
-  const handleStepChange = () => {
-    setStep(step + 1);
-  };
+
+  // Debounced step change handler
+  const handleStepChange = useCallback(() => {
+    setStep((prevStep) => prevStep + 1);
+  }, []);
+
   const handleCategoryChange = (category) => {
-    setServiceDetail({
-      ...serviceDetail,
+    setServiceDetail((prevDetails) => ({
+      ...prevDetails,
       category,
-    });
+    }));
     handleStepChange();
   };
+
   const handleSubCategoryChange = (subCategory) => {
-    setServiceDetail({
-      ...serviceDetail,
+    setServiceDetail((prevDetails) => ({
+      ...prevDetails,
       subCategory,
-    });
+    }));
     handleStepChange();
   };
+
   const handleServiceChange = (service) => {
-    setServiceDetail({
-      ...serviceDetail,
+    setServiceDetail((prevDetails) => ({
+      ...prevDetails,
       service,
-    });
+    }));
     handleStepChange();
   };
+
   const handleSubServiceChange = (subService) => {
-    setServiceDetail({
-      ...serviceDetail,
+    setServiceDetail((prevDetails) => ({
+      ...prevDetails,
       subService,
-    });
+    }));
     handleStepChange();
   };
+
   const handleBackButton = () => {
-    setStep(step - 1);
+    setStep((prevStep) => prevStep - 1);
   };
 
   useEffect(() => {
@@ -59,27 +66,29 @@ export default function Home() {
       4: "subService",
     };
     const getCategories = async () => {
-      const uri = `http://localhost:4000/srv/${selectedStep[step]}/getAll${
-        step !== 1 ? `/${serviceDetail[selectedStep[step - 1]]}` : ""
-      }`;
-      setStepData(
-        (await axios.get(uri)).data.map((item) => {
-          return {
-            ...item,
-            checked: false,
-          };
-        })
-      );
+      try {
+        const uri = `http://localhost:4000/srv/${selectedStep[step]}/getAll${
+          step !== 1 ? `/${serviceDetail[selectedStep[step - 1]]}` : ""
+        }`;
+        const response = await axios.get(uri);
+        setStepData(response.data.map((item) => ({ ...item, checked: false })));
+      } catch (error) {
+        console.error("Error fetching data", error);
+      }
     };
     getCategories();
-  }, [step, serviceDetail]);
+  }, [step, serviceDetail.category, serviceDetail.subCategory, serviceDetail.service]);
 
   useEffect(() => {
     const fetchCart = async () => {
-      const response = await axios.get(`http://localhost:4000/srv/user/cart`, {
-        headers: { token: localStorage.getItem("token") },
-      });
-      dispatch({ type: "UPDATE", value: response?.data?.cart || [] });
+      try {
+        const response = await axios.get(`http://localhost:4000/srv/user/cart`, {
+          headers: { token: localStorage.getItem("token") },
+        });
+        dispatch({ type: "UPDATE", value: response?.data?.cart || [] });
+      } catch (error) {
+        console.error("Error fetching cart", error);
+      }
     };
     fetchCart();
   }, [dispatch]);

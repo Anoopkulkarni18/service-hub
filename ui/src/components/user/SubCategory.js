@@ -1,6 +1,7 @@
 import React from "react";
 
 function SubCategory({ stepData, handleSubCategoryChange }) {
+  console.log(stepData);
   return (
     <div>
       <h3 style={{ textAlign: "center", marginBottom: "20px" }}>
