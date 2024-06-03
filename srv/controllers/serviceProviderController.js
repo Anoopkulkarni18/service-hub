@@ -96,3 +96,19 @@ export const getAllServices = async (req, res, next) => {
     next(err);
   }
 };
+
+export const removeService = async (req, res, next) => {
+  try {
+    const serviceProviderEmail = req.serviceProvider.email;
+    const { serviceKey } = req.params;
+    if (serviceKey) {
+      await ServiceListModel.deleteOne({
+        serviceProviderEmail: serviceProviderEmail,
+        serviceKey: serviceKey,
+      });
+    }
+    res.status(200).send("Service Removed Successfully");
+  } catch (err) {
+    next(err);
+  }
+};

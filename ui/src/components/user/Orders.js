@@ -80,18 +80,29 @@ const ServicePartner = styled.div`
 const Orders = () => {
   const [orders, setOrders] = useState([]);
 
+  const fetchOrders = async () => {
+    const response = await axiosRequest(
+      "get",
+      `http://localhost:4000/srv/order/getAllOrders`,
+      null,
+      localStorage.getItem("token")
+    );
+    setOrders(response?.orders);
+  };
+
   useEffect(() => {
-    const fetchOrders = async () => {
-      const response = await axiosRequest(
-        "get",
-        `http://localhost:4000/srv/order/getAllOrders`,
-        null,
-        localStorage.getItem("token")
-      );
-      setOrders(response?.orders);
-    };
     fetchOrders();
   }, []);
+
+  const handleCancelOrder = async (orderId) => {
+    await axiosRequest(
+      "get",
+      `http://localhost:4000/srv/order/cancelOrder/${orderId}`,
+      null,
+      localStorage.getItem("token")
+    );
+    fetchOrders();
+  };
 
   return (
     <>
@@ -129,6 +140,11 @@ const Orders = () => {
               Service Partner Mobile Number:{" "}
               {item.serviceProviderModileNumber || "Not Assigned"}
             </OrderDetail>
+            {item.status !== "Cancelled" && (
+              <button onClick={() => handleCancelOrder(item.orderId)}>
+                Cancel
+              </button>
+            )}
           </OrderCard>
         ))}
       </OrdersContainer>

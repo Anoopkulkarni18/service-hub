@@ -15,6 +15,7 @@ import Orders from "./components/user/Orders";
 import NavbarServiceProvider from "./components/serviceProvider/NavbarServiceProvider";
 import ServiceProviderOrders from "./components/serviceProvider/ServiceProviderOrders";
 import { ServiceContextProvider } from "./components/user/context/ServiceContext";
+import ServiceProviderCompletedOrders from "./components/serviceProvider/ServiceProviderCompletedOrders";
 
 function App() {
   return (
@@ -92,6 +93,17 @@ function App() {
                       style={{ position: "sticky", top: 0, zIndex: 1000 }}
                     />
                     <ServiceProviderOrders />
+                  </>
+                }
+              />
+              <Route
+                path="/service-provider-completed-orders"
+                element={
+                  <>
+                    <NavbarServiceProvider
+                      style={{ position: "sticky", top: 0, zIndex: 1000 }}
+                    />
+                    <ServiceProviderCompletedOrders />
                   </>
                 }
               />

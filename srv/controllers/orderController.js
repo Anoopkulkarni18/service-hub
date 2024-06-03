@@ -121,3 +121,32 @@ export const getSPOrders = async (req, res, next) => {
     next(err);
   }
 };
+
+export const getSPCompletedOrders = async (req, res, next) => {
+  try {
+    const { email } = req.serviceProvider;
+    const orders = await Order.find({
+      serviceProviderEmail: email,
+    }).sort({ createdAt: -1 });
+    res.status(200).json({ orders });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const cancelOrder = async (req, res, next) => {
+  try {
+    const { orderId } = req.params;
+    const order = await Order.findOneAndUpdate(
+      { orderId },
+      {
+        $set: {
+          status: "Cancelled",
+        },
+      }
+    );
+    res.status(200).json({ order });
+  } catch (err) {
+    next(err);
+  }
+};

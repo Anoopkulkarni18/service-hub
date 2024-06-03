@@ -28,6 +28,10 @@ export default function NavbarServiceProvider() {
     navigate("/service-provider-orders");
   };
 
+  const handleCompletedOrders = () => {
+    navigate("/service-provider-completed-orders");
+  };
+
   const handleSearch = async (event) => {
     event.preventDefault();
     try {
@@ -87,7 +91,7 @@ export default function NavbarServiceProvider() {
               </button>
               <button
                 className="btn btn-outline-light ms-2"
-                onClick={handleLogout}
+                onClick={handleCompletedOrders}
               >
                 Completed Orders
               </button>

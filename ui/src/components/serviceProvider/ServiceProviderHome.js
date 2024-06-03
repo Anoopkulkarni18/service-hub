@@ -122,6 +122,16 @@ export default function ServiceProviderHome() {
     step === 0 ? getProviderServices() : getCategories();
   }, [step, serviceDetail]);
 
+  const handleRemoveService = async (serviceKey) => {
+    await axios.get(
+      `http://localhost:4000/srv/serviceProvider/removeService/${serviceKey}`,
+      { headers: { token: localStorage.getItem("token") } }
+    );
+    setServicesProvided(
+      servicesProvided.filter((item) => item.serviceKey !== serviceKey)
+    );
+  };
+
   return (
     <div style={{ paddingTop: "56px", textAlign: "center" }}>
       <h3>Services</h3>
@@ -141,6 +151,13 @@ export default function ServiceProviderHome() {
               </h5>
               <p className="card-text" style={cardTextStyle}></p>
             </div>
+            <button
+              onClick={() => {
+                handleRemoveService(ser.serviceKey);
+              }}
+            >
+              X
+            </button>
           </div>
         ))}
       </div>
