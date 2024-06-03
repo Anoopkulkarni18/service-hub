@@ -36,7 +36,7 @@ function Services({ stepData, handleServiceChange }) {
                 {" "}
                 {/* remove border */}
                 <img
-                  src="..."
+                  src={`/${ser.key}.jpeg`}
                   className="card-img-top"
                   alt="..."
                   style={{ width: "100%" }}

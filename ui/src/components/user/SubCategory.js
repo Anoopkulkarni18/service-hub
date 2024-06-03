@@ -33,7 +33,7 @@ function SubCategory({ stepData, handleSubCategoryChange }) {
               style={{ height: "100%", width: "100%", border: "none" }}
             >
               <img
-                src="..."
+               src={`/${subCat.key}.jpeg`}
                 className="card-img-top"
                 alt="..."
                 style={{ width: "100%" }}
