@@ -1,10 +1,12 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { ServiceContext } from "./context/ServiceContext";
 
 export default function Navbar() {
+  const { serviceDispatch } = useContext(ServiceContext);
   const navigate = useNavigate();
   const [search, setSearch] = useState(" ");
   const token = localStorage.getItem("token");
@@ -34,7 +36,7 @@ export default function Navbar() {
         { query: search }
       );
 
-      console.log("Search results:", response.data);
+      console.log("Search results:", response);
     } catch (error) {
       console.error("Error searching:", error);
     }
@@ -47,6 +49,10 @@ export default function Navbar() {
   };
   const handleOrders = () => {
     navigate("/orders");
+  };
+  const handleLogoClick = () => {
+    serviceDispatch({ type: "CLEAR" });
+    navigate("/");
   };
   return (
     <div>
@@ -64,9 +70,12 @@ export default function Navbar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link to="/">
-                  <img src="/logo.jpg" alt="Logo" style={{ height: "60px" }} />
-                </Link>
+                <img
+                  src="/logo.jpg"
+                  alt="Logo"
+                  style={{ height: "60px" }}
+                  onClick={handleLogoClick}
+                />
               </li>
             </ul>
             <form className="d-flex mx-auto">

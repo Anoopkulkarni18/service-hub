@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { axiosRequest } from "./util/fetchService";
 import { useNavigate } from "react-router-dom";
 
 export default function Register() {
@@ -23,16 +23,13 @@ export default function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post(
-        "http://localhost:4000/srv/user/register",
-        formData
-      );
-      localStorage.setItem("token", res.data.token);
-      navigate("/");
-    } catch (error) {
-      console.error("Registration failed", error);
-    }
+    const res = await axiosRequest(
+      "post",
+      "http://localhost:4000/srv/user/register",
+      formData
+    );
+    localStorage.setItem("token", res.token);
+    navigate("/");
   };
 
   const goToLogin = () => {

@@ -1,7 +1,26 @@
 import React from "react";
+import { useContext, useEffect } from "react";
+import { ServiceContext } from "./context/ServiceContext";
+import { getStepData } from "./util/fetchService";
+function Services() {
+  const { serviceState, serviceDispatch } = useContext(ServiceContext);
+  const handleServiceChange = (service) => {
+    serviceDispatch({
+      type: "SET_TYPE_STEP",
+      value: { service, step: serviceState.step + 1 },
+    });
+  };
 
-function Services({ stepData, handleServiceChange }) {
-  console.log(stepData);
+  useEffect(() => {
+    const getCategories = async () => {
+      const value = await getStepData(serviceState);
+      serviceDispatch({
+        type: "SET_STEP_DATA",
+        value,
+      });
+    };
+    getCategories();
+  }, []);
   return (
     <div>
       <h3 style={{ textAlign: "center", marginBottom: "20px" }}>
@@ -15,7 +34,7 @@ function Services({ stepData, handleServiceChange }) {
           justifyContent: "center",
         }}
       >
-        {stepData.map((ser) => {
+        {serviceState.stepData.map((ser) => {
           return (
             <div
               key={ser.key}

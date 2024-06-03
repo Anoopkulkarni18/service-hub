@@ -1,23 +1,48 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { CartContext } from "./context/CartContext";
-import axios from "axios";
+import { ServiceContext } from "./context/ServiceContext";
+import { axiosRequest, getStepData } from "./util/fetchService";
 
-function SubService({ stepData, handleSubServiceChange }) {
-  const { cart, dispatch } = useContext(CartContext);
-
+function SubService({ stepData }) {
+  const { cart, cartDispatch } = useContext(CartContext);
+  const { serviceState, serviceDispatch } = useContext(ServiceContext);
+  useEffect(() => {
+    const getCategories = async () => {
+      const value = await getStepData(serviceState);
+      serviceDispatch({
+        type: "SET_STEP_DATA",
+        value,
+      });
+    };
+    getCategories();
+  }, []);
   const addToCart = async (subService) => {
-    subService.quantity = 2;
-    const { name, key, service, description, price, quantity } = subService;
-    await axios.post(
+    const { name, key, service, description, price } = subService;
+    let type = "ADD";
+    const upCart = cart;
+    for (const item of upCart) {
+      if (item.key === subService.key) {
+        type = "UPDATE";
+        item.quantity += 1;
+      }
+    }
+    await axiosRequest(
+      "post",
       "http://localhost:4000/srv/user/updateCart",
       {
-        cart: [...cart, { name, key, service, description, price, quantity }],
+        cart:
+          type === "ADD"
+            ? [...cart, { name, key, service, description, price, quantity: 1 }]
+            : upCart,
       },
-      { headers: { token: localStorage.getItem("token") } }
+      localStorage.getItem("token")
     );
-    dispatch({
-      type: "ADD",
-      value: { name, key, service, description, price, quantity },
+    cartDispatch({
+      type,
+      value:
+        type === "ADD"
+          ? { name, key, service, description, price, quantity: 1 }
+          : upCart,
     });
   };
 
@@ -81,7 +106,7 @@ function SubService({ stepData, handleSubServiceChange }) {
     <div>
       <h3 style={containerStyle}>Select a sub service</h3>
       <div style={gridStyle}>
-        {stepData.map((subService, index) => (
+        {serviceState?.stepData?.map((subService, index) => (
           <div
             key={subService.key}
             style={cardStyle}
