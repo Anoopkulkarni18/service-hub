@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { axiosRequest } from "./util/fetchService";
 
 export default function ServiceProviderLogin() {
   const [formData, setFormData] = useState({
@@ -19,11 +19,13 @@ export default function ServiceProviderLogin() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const res = await axios.post(
+
+    const res = await axiosRequest(
+      "post",
       "http://localhost:4000/srv/user/login",
       formData
     );
-    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("token", res.token);
     navigate("/");
   };
 

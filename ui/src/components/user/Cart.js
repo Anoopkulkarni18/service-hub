@@ -131,6 +131,21 @@ const Cart = () => {
     return Object.values(address).every((value) => value.trim() !== "");
   };
 
+  const handleDelete = async (key) => {
+    await axiosRequest(
+      "post",
+      "http://localhost:4000/srv/user/updateCart",
+      {
+        cart: cart.filter((item) => item.key !== key),
+      },
+      localStorage.getItem("token")
+    );
+    cartDispatch({
+      type: "UPDATE",
+      value: cart.filter((item) => item.key !== key),
+    });
+  };
+
   const handleBook = async () => {
     try {
       await axiosRequest(
@@ -165,6 +180,13 @@ const Cart = () => {
               <strong>{item.name}</strong> - Rs {item.price} - {item.quantity}{" "}
               nos
             </CartItemText>
+            <button
+              onClick={() => {
+                handleDelete(item.key);
+              }}
+            >
+              X
+            </button>
           </CartItem>
         ))}
         <Total>Total: Rs {calculateTotal().toFixed(2)}</Total>

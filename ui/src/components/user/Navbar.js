@@ -51,7 +51,6 @@ export default function Navbar() {
     navigate("/orders");
   };
   const handleLogoClick = () => {
-    console.log("hello");
     serviceDispatch({ type: "CLEAR" });
     navigate("/");
   };

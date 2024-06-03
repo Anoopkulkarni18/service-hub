@@ -1,8 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { CartContext } from "./context/CartContext";
-import axios from "axios";
 import { ServiceContext } from "./context/ServiceContext";
-import { getStepData } from "./util/fetchService";
+import { axiosRequest, getStepData } from "./util/fetchService";
 
 function SubService({ stepData }) {
   const { cart, cartDispatch } = useContext(CartContext);
@@ -18,18 +17,32 @@ function SubService({ stepData }) {
     getCategories();
   }, []);
   const addToCart = async (subService) => {
-    subService.quantity = 2;
-    const { name, key, service, description, price, quantity } = subService;
-    await axios.post(
+    const { name, key, service, description, price } = subService;
+    let type = "ADD";
+    const upCart = cart;
+    for (const item of upCart) {
+      if (item.key === subService.key) {
+        type = "UPDATE";
+        item.quantity += 1;
+      }
+    }
+    await axiosRequest(
+      "post",
       "http://localhost:4000/srv/user/updateCart",
       {
-        cart: [...cart, { name, key, service, description, price, quantity }],
+        cart:
+          type === "ADD"
+            ? [...cart, { name, key, service, description, price, quantity: 1 }]
+            : upCart,
       },
-      { headers: { token: localStorage.getItem("token") } }
+      localStorage.getItem("token")
     );
     cartDispatch({
-      type: "ADD",
-      value: { name, key, service, description, price, quantity },
+      type,
+      value:
+        type === "ADD"
+          ? { name, key, service, description, price, quantity: 1 }
+          : upCart,
     });
   };
 

@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
+import { axiosRequest } from "./util/fetchService";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -58,11 +58,13 @@ const Profile = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(
+        const response = await axiosRequest(
+          "get",
           `http://localhost:4000/srv/user/getSingleUser`,
-          { headers: { token: localStorage.getItem("token") } }
+          null,
+          localStorage.getItem("token")
         );
-        setUser(response.data);
+        setUser(response);
         setLoading(false);
       } catch (error) {
         setError(error.message);
