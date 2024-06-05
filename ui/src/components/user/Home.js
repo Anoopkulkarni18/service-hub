@@ -6,8 +6,10 @@ import SubService from "./SubService";
 import { CartContext } from "./context/CartContext";
 import { ServiceContext } from "./context/ServiceContext";
 import { axiosRequest } from "./util/fetchService";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
   const { cartDispatch } = useContext(CartContext);
   const { serviceState, serviceDispatch } = useContext(ServiceContext);
 
