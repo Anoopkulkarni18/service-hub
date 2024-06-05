@@ -22,7 +22,13 @@ function App() {
     <CartProvider>
       <ServiceContextProvider>
         <Router>
-          <div className="App">
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              minHeight: "100vh",
+            }}
+          >
             <Routes>
               <Route
                 path="/"
