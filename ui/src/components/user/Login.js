@@ -40,7 +40,7 @@ export default function ServiceProviderLogin() {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        background: "linear-gradient(to right, #c1dfc4, #deecdd)", // Light green gradient background
+        background: "linear-gradient(to right, #f5f5f5, #e0e0e0)", // Light green gradient background
       }}
     >
       <div
@@ -124,8 +124,14 @@ export default function ServiceProviderLogin() {
               cursor: "pointer",
               transition: "background 0.3s ease",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "linear-gradient(to right, #8DC26F, #76b852)")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "linear-gradient(to right, #76b852, #8DC26F)")}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.background =
+                "linear-gradient(to right, #8DC26F, #76b852)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.background =
+                "linear-gradient(to right, #76b852, #8DC26F)")
+            }
           >
             Submit
           </button>
@@ -146,8 +152,12 @@ export default function ServiceProviderLogin() {
             boxShadow: "0 2px 4px rgba(31, 64, 55, 0.2)",
             transition: "background 0.3s ease",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#4fa3d3")}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#57c1eb")}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = "#4fa3d3")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = "#57c1eb")
+          }
         >
           Register
         </button>

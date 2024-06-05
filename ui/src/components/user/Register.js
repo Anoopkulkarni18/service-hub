@@ -47,7 +47,7 @@ export default function Register() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "linear-gradient(to right, #c1dfc4, #deecdd)", // Light green gradient background
+        background: "linear-gradient(to right, #f5f5f5, #e0e0e0)", // Light green gradient background
         padding: "20px",
       }}
     >
@@ -203,10 +203,12 @@ export default function Register() {
               transition: "background 0.3s ease",
             }}
             onMouseEnter={(e) =>
-              (e.currentTarget.style.background = "linear-gradient(to right, #8DC26F, #76b852)")
+              (e.currentTarget.style.background =
+                "linear-gradient(to right, #8DC26F, #76b852)")
             }
             onMouseLeave={(e) =>
-              (e.currentTarget.style.background = "linear-gradient(to right, #76b852, #8DC26F)")
+              (e.currentTarget.style.background =
+                "linear-gradient(to right, #76b852, #8DC26F)")
             }
           >
             Register
