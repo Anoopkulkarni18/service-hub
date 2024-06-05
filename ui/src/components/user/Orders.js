@@ -103,7 +103,7 @@ const Orders = () => {
     );
     fetchOrders();
   };
-
+console.log(orders);
   return (
     <>
       <GlobalStyle />
@@ -111,6 +111,9 @@ const Orders = () => {
         <OrderTitle>Orders</OrderTitle>
         {orders.map((item) => (
           <OrderCard key={item.orderId}>
+            <OrderDetail>
+              <strong>Order Name:</strong> {item.items[0].name}
+            </OrderDetail>
             <OrderDetail>
               <strong>Order ID:</strong> {item.orderId}
             </OrderDetail>

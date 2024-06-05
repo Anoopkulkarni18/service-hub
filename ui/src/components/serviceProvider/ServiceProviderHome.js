@@ -134,7 +134,7 @@ export default function ServiceProviderHome() {
 
   return (
     <div style={{ paddingTop: "56px", textAlign: "center" }}>
-      <h3>Services</h3>
+      <h3 style={{marginTop:"20px"}} >Services</h3>
 
       <div style={cardContainerStyle}>
         {servicesProvided.map((ser) => (

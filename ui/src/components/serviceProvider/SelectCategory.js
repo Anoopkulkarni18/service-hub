@@ -41,7 +41,7 @@ function SelectCategory({ stepData, handleCategoryChange }) {
                   style={{ height: "100%", width: "100%", border: "none" }}
                 >
                   <img
-                    src={cat.image}
+                    src={`${cat.key}.webp`}
                     className="card-img-top"
                     alt={cat.name}
                     style={{ width: "100%", borderRadius: "8px 8px 0 0" }}

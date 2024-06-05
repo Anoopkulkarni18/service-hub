@@ -24,7 +24,7 @@ function SelectServices({
             }}
           >
             <img
-              src={serv.imageUrl}
+              src={`/${serv.key}.jpeg`}
               className="card-img-top"
               alt={serv.name}
               style={{ height: "200px", objectFit: "cover" }}

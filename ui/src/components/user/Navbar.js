@@ -73,7 +73,7 @@ export default function Navbar() {
                 <img
                   src="/logo.jpg"
                   alt="Logo"
-                  style={{ height: "60px" }}
+                  style={{ height: "60px", cursor: "pointer" }} // Set cursor to pointer
                   onClick={handleLogoClick}
                 />
               </li>

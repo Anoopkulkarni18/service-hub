@@ -46,11 +46,23 @@ export default function NavbarServiceProvider() {
     }
   };
 
+  const handleLogoClick = () => {
+    navigate("/");
+  };
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-secondary mb-0 fixed-top">
+    <nav
+      style={{ marginBottom: 20 }}
+      className="navbar navbar-expand-lg navbar-light bg-secondary mb-0 fixed-top"
+    >
       <div className="container-fluid">
         <Link to="/service-provider-home">
-          <img src="#" alt="Logo" style={{ height: "50px" }} />
+          <img
+            src="/logo.jpg"
+            alt="Logo"
+            style={{ height: "60px", cursor: "pointer" }} // Set cursor to pointer
+            onClick={handleLogoClick}
+          />
         </Link>
         <button
           className="navbar-toggler"
@@ -64,23 +76,7 @@ export default function NavbarServiceProvider() {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <form className="d-flex mx-auto">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-              value={search}
-              onChange={handleSearchChange}
-            />
-            <button
-              className="btn btn-outline-light"
-              onClick={handleSearch}
-              type="submit"
-            >
-              Search
-            </button>
-          </form>
+          <form className="d-flex mx-auto"></form>
           {token ? (
             <>
               <button
