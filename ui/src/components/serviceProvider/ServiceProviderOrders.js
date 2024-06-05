@@ -24,7 +24,7 @@ const Title = styled.h2`
   color: #333;
   text-align: center;
   margin-bottom: 20px;
-  margin-top:50px;
+  margin-top: 50px;
   font-size: 2rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -84,7 +84,7 @@ const ServiceProviderOrders = () => {
     await axios.get(`http://localhost:4000/srv/order/acceptOrder/${orderId}`, {
       headers: { token: localStorage.getItem("token") },
     });
-    navigate("/service-provider-home");
+    navigate("/service-provider-completed-orders");
   };
 
   return (

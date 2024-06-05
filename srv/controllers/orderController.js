@@ -150,3 +150,20 @@ export const cancelOrder = async (req, res, next) => {
     next(err);
   }
 };
+
+export const completeOrder = async (req, res, next) => {
+  try {
+    const { orderId } = req.params;
+    const order = await Order.findOneAndUpdate(
+      { orderId },
+      {
+        $set: {
+          status: "Completed",
+        },
+      }
+    );
+    res.status(200).json({ order });
+  } catch (err) {
+    next(err);
+  }
+};

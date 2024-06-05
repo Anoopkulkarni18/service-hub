@@ -49,19 +49,29 @@ const OrderId = styled.h6`
 
 const ServiceProviderCompletedOrders = () => {
   const [orders, setOrders] = useState([]);
+  const fetchOrders = async () => {
+    const response = await axios.get(
+      `http://localhost:4000/srv/order/SPCompletedOrders`,
+      {
+        headers: { token: localStorage.getItem("token") },
+      }
+    );
+    setOrders(response.data.orders);
+  };
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      const response = await axios.get(
-        `http://localhost:4000/srv/order/SPCompletedOrders`,
-        {
-          headers: { token: localStorage.getItem("token") },
-        }
-      );
-      setOrders(response.data.orders);
-    };
     fetchOrders();
   }, []);
+
+  const markOrderAsCompleted = async (orderId) => {
+    await axios.get(
+      `http://localhost:4000/srv/order/completeOrder/${orderId}`,
+      {
+        headers: { token: localStorage.getItem("token") },
+      }
+    );
+    await fetchOrders();
+  };
 
   return (
     <>
@@ -73,6 +83,11 @@ const ServiceProviderCompletedOrders = () => {
             <OrderItem key={item.orderId}>
               <OrderId>OrderId: {item.orderId}</OrderId>
               <p>status: {item.status}</p>
+              {item.status === "Accepted" && (
+                <button onClick={() => markOrderAsCompleted(item.orderId)}>
+                  Complete Order
+                </button>
+              )}
             </OrderItem>
           );
         })}
