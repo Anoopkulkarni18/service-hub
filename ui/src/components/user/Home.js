@@ -25,13 +25,18 @@ export default function Home() {
   };
   useEffect(() => {
     const fetchCart = async () => {
-      const response = await axiosRequest(
-        "get",
-        `http://localhost:4000/srv/user/cart`,
-        null,
-        localStorage.getItem("token")
-      );
-      cartDispatch({ type: "UPDATE", value: response?.cart || [] });
+      try {
+        const response = await axiosRequest(
+          "get",
+          `http://localhost:4000/srv/user/cart`,
+          null,
+          localStorage.getItem("token")
+        );
+        cartDispatch({ type: "UPDATE", value: response?.cart || [] });
+      } catch (err) {
+        localStorage.removeItem("token");
+        navigate("/login");
+      }
     };
     fetchCart();
   }, [cartDispatch]);
