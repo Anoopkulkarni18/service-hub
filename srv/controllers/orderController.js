@@ -167,3 +167,22 @@ export const completeOrder = async (req, res, next) => {
     next(err);
   }
 };
+
+export const reviewOrder = async (req, res, next) => {
+  try {
+    const { orderId } = req.params;
+    const { review, rating } = req.body;
+    const order = await Order.findOneAndUpdate(
+      { orderId },
+      {
+        $set: {
+          review,
+          rating,
+        },
+      }
+    );
+    res.status(200).json({ order });
+  } catch (err) {
+    next(err);
+  }
+};

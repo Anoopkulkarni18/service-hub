@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { ServiceContext } from "./context/ServiceContext";
+import { CartContext } from "./context/CartContext";
 
 export default function Navbar() {
   const { serviceDispatch } = useContext(ServiceContext);
+  const { cart } = useContext(CartContext);
   const navigate = useNavigate();
   const [search, setSearch] = useState(" ");
   const token = localStorage.getItem("token");
@@ -119,7 +121,7 @@ export default function Navbar() {
                   className="btn btn-outline-light ms-2"
                   onClick={handleCart}
                 >
-                  cart
+                  cart {`${cart.length}`}
                 </button>
                 <button
                   className="btn btn-outline-light ms-2"

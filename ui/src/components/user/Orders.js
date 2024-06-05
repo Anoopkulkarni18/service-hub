@@ -77,8 +77,46 @@ const ServicePartner = styled.div`
   font-size: 1.1rem;
 `;
 
+const ReviewContainer = styled.div`
+  margin-top: 10px;
+`;
+
+const RatingSelect = styled.select`
+  margin: 10px 0;
+  padding: 5px;
+  font-size: 1rem;
+`;
+
+const TextArea = styled.textarea`
+  width: 100%;
+  height: 80px;
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+`;
+
+const SubmitButton = styled.button`
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #ff6f61;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #de4839;
+  }
+`;
+
 const Orders = () => {
   const [orders, setOrders] = useState([]);
+  const [ratings, setRatings] = useState({});
+  const [reviews, setReviews] = useState({});
 
   const fetchOrders = async () => {
     const response = await axiosRequest(
@@ -90,10 +128,6 @@ const Orders = () => {
     setOrders(response?.orders);
   };
 
-  useEffect(() => {
-    fetchOrders();
-  }, []);
-
   const handleCancelOrder = async (orderId) => {
     await axiosRequest(
       "get",
@@ -103,6 +137,38 @@ const Orders = () => {
     );
     fetchOrders();
   };
+
+  const handleRatingChange = (orderId, rating) => {
+    setRatings({
+      ...ratings,
+      [orderId]: rating,
+    });
+  };
+
+  const handleReviewChange = (orderId, review) => {
+    setReviews({
+      ...reviews,
+      [orderId]: review,
+    });
+  };
+
+  const handleReviewSubmit = async (orderId) => {
+    const rating = ratings[orderId];
+    const review = reviews[orderId];
+
+    await axiosRequest(
+      "post",
+      `http://localhost:4000/srv/order/reviewOrder/${orderId}`,
+      { rating, review },
+      localStorage.getItem("token")
+    );
+    fetchOrders();
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
   return (
     <>
       <GlobalStyle />
@@ -142,10 +208,54 @@ const Orders = () => {
               Service Partner Mobile Number:{" "}
               {item.serviceProviderModileNumber || "Not Assigned"}
             </OrderDetail>
-            {item.status !== "Cancelled" && (
+            {item.status !== "Cancelled" && item.status !== "Completed" && (
               <button onClick={() => handleCancelOrder(item.orderId)}>
                 Cancel
               </button>
+            )}
+            {item.status === "Completed" && (
+              <ReviewContainer>
+                {!item.rating ? (
+                  <>
+                    <RatingSelect
+                      value={ratings[item.orderId] || ""}
+                      onChange={(e) =>
+                        handleRatingChange(item.orderId, e.target.value)
+                      }
+                    >
+                      <option value="" disabled>
+                        Rate the Order
+                      </option>
+                      {[1, 2, 3, 4, 5].map((rating) => (
+                        <option key={rating} value={rating}>
+                          {rating}
+                        </option>
+                      ))}
+                    </RatingSelect>
+                    <TextArea
+                      placeholder="Write your review here..."
+                      value={reviews[item.orderId] || ""}
+                      onChange={(e) =>
+                        handleReviewChange(item.orderId, e.target.value)
+                      }
+                    />
+                    <SubmitButton
+                      onClick={() => handleReviewSubmit(item.orderId)}
+                    >
+                      Submit Review
+                    </SubmitButton>
+                  </>
+                ) : (
+                  <OrderDetail>
+                    <strong>Rating:</strong> {item.rating}
+                  </OrderDetail>
+                )}
+                {item.review && (
+                  <OrderDetail>
+                    <strong>Review:</strong> {item.review}
+                  </OrderDetail>
+                )}
+              </ReviewContainer>
             )}
           </OrderCard>
         ))}

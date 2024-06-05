@@ -26,6 +26,8 @@ const orderSchema = new mongoose.Schema(
     status: String,
     items: [itemsSchema],
     service: String,
+    review: String,
+    rating: Number,
   },
   {
     timestamps: { createdAt: true, updatedAt: false },
