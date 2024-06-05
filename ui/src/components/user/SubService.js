@@ -7,14 +7,16 @@ function SubService({ stepData }) {
   const { cart, cartDispatch } = useContext(CartContext);
   const { serviceState, serviceDispatch } = useContext(ServiceContext);
   useEffect(() => {
-    const getCategories = async () => {
-      const value = await getStepData(serviceState);
-      serviceDispatch({
-        type: "SET_STEP_DATA",
-        value,
-      });
-    };
-    getCategories();
+    if (serviceState.search !== true) {
+      const getCategories = async () => {
+        const value = await getStepData(serviceState);
+        serviceDispatch({
+          type: "SET_STEP_DATA",
+          value,
+        });
+      };
+      getCategories();
+    }
   }, []);
   const addToCart = async (subService) => {
     const { name, key, service, description, price } = subService;
@@ -99,8 +101,6 @@ function SubService({ stepData }) {
   const buttonHoverStyle = {
     backgroundColor: "#218838",
   };
-
-  console.log(stepData);
 
   return (
     <div>

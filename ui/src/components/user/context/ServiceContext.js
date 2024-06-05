@@ -15,6 +15,7 @@ const serviceReducer = (state, action) => {
         service: "",
         subService: "",
         stepData: [],
+        search: false,
       };
     default:
       return state;
@@ -29,6 +30,7 @@ export const ServiceContextProvider = (props) => {
     service: "",
     subService: "",
     stepData: [],
+    search: false,
   });
   return (
     <ServiceContext.Provider value={{ serviceState, serviceDispatch }}>

@@ -93,11 +93,3 @@ export const getCart = async (req, res, next) => {
     next(err);
   }
 };
-
-export const deleteCart = async (req, res, next) => {
-  try {
-    const { id } = req.serviceProvider;
-    
-
-  } catch (error) {}
-};

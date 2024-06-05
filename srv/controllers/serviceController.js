@@ -1,4 +1,5 @@
 import Service from "./../models/ServiceModel.js";
+import SubServiceModel from "./../models/subServiceModel.js";
 export const createService = async (req, res, next) => {
   try {
     const { name, key, subCategory } = req.body;
@@ -35,12 +36,15 @@ export const getSearchService = async (req, res, next) => {
   try {
     const name = req.body.query;
     const searchRegex = new RegExp(name, "i");
-    const searchedElements = await Service.find({ name: searchRegex });
-    if (searchedElements.length === 0) {
+    const searchedServices = await Service.find({ name: searchRegex });
+    const serviceKeys = searchedServices.map((item) => item.key);
+    const searchedSubServices = await SubServiceModel.find({
+      $or: [{ service: { $in: serviceKeys } }, { name: searchRegex }],
+    });
+    if (searchedSubServices.length === 0) {
       return res.status(404).json({ error: "No items found" });
     }
-
-    res.status(200).json(searchedElements);
+    res.status(200).json(searchedSubServices);
   } catch (error) {
     // Handle errors
     console.error("Error searching:", error);

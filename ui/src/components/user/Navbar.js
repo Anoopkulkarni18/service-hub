@@ -35,8 +35,14 @@ export default function Navbar() {
         "http://localhost:4000/srv/service/search",
         { query: search }
       );
-
-      console.log("Search results:", response);
+      serviceDispatch({
+        type: "SET_TYPE_STEP",
+        value: {
+          step: 4,
+          stepData: response.data,
+          search: true,
+        },
+      });
     } catch (error) {
       console.error("Error searching:", error);
     }

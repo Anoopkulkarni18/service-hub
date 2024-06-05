@@ -12,10 +12,16 @@ export default function Home() {
   const { serviceState, serviceDispatch } = useContext(ServiceContext);
 
   const handleBackButton = () => {
-    serviceDispatch({
-      type: "SET_TYPE_STEP",
-      value: { step: serviceState.step - 1 },
-    });
+    if (serviceState.search === true) {
+      serviceDispatch({
+        type: "CLEAR",
+      });
+    } else {
+      serviceDispatch({
+        type: "SET_TYPE_STEP",
+        value: { step: serviceState.step - 1 },
+      });
+    }
   };
   useEffect(() => {
     const fetchCart = async () => {

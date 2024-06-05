@@ -1,10 +1,8 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function NavbarServiceProvider() {
   const navigate = useNavigate();
-  const [search, setSearch] = useState("");
   const token = localStorage.getItem("token");
 
   const handleLogout = () => {
@@ -20,30 +18,12 @@ export default function NavbarServiceProvider() {
     navigate("/service-provider-register");
   };
 
-  const handleSearchChange = async (event) => {
-    setSearch(event.target.value);
-  };
-
   const handleOrder = () => {
     navigate("/service-provider-orders");
   };
 
   const handleCompletedOrders = () => {
     navigate("/service-provider-completed-orders");
-  };
-
-  const handleSearch = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/srv/service/search",
-        { query: search }
-      );
-
-      console.log("Search results:", response.data);
-    } catch (error) {
-      console.error("Error searching:", error);
-    }
   };
 
   const handleLogoClick = () => {
